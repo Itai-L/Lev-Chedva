@@ -20,7 +20,10 @@
   </div>
   <h1>השאלת מוצר</h1>
   <div id="container">
-      <input type="text" id="search-input" placeholder="הכנס שם מוצר" />
+      <div class="autocomplete">
+        <input type="text" id="search-input" placeholder="הכנס שם מוצר" />
+        <div id="autocomplete-results" class="autocomplete-results" style="display: none;"></div>
+      </div>
       <button id="search-button">חפש לפי שם מוצר</button>
       <button id="ticket-search-btn">חפש לפי כרטיס הזמנה</button>
   </div>
@@ -102,9 +105,45 @@
       const ticketSearchBtn = document.getElementById('ticket-search-btn');
 
 
-
+    let familiesValid=false;
     let borrowCounter = null;
     let borrowCounterRef = firebase.firestore().collection('Tools').doc('Events Counter');
+
+    const autocompleteResults = document.querySelector('#autocomplete-results');
+
+      let inventoryData = [];  // Array to store all inventory document data
+
+
+    firebase.firestore().collection('inventory').get()
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            inventoryData.push({ id: doc.id, categorical_number: doc.data().categorical_number });
+          });
+        })
+        .catch((error) => {
+          console.error("Error getting documents from 'inventory':", error);
+        });
+
+      // Add event listener to 'name' input
+      searchInput.addEventListener('input', function(e) {
+        const userInput = e.target.value;
+       autocompleteResults.style.display="block";
+        // Clear current results:
+        if(userInput=="")
+        autocompleteResults.style.display="none";
+        autocompleteResults.innerHTML = '';
+
+        // Show new results:
+        inventoryData.filter(data => data.id.includes(userInput)).forEach(data => {
+          const result = document.createElement('div');
+          result.textContent = data.id;
+          result.addEventListener('click', function() {
+            searchInput.value = data.id;
+            autocompleteResults.innerHTML = '';
+          });
+          autocompleteResults.appendChild(result);
+        });
+      });
     
     function getHebrewLabel(key) {
 switch (key) {
@@ -194,7 +233,7 @@ switch (key) {
 let TicketValid=false;
 let OldBorrow=null;     
 let CatNum=null;
-
+let newReserved=0;
 
     ticketSearchBtn.addEventListener('click', async () => {
         const ticketNumber = searchInput.value;
@@ -295,7 +334,7 @@ let CatNum=null;
       
           try {
               if (TicketValid) {
-                const itemUpdateData = { status: newStatus };
+                const itemUpdateData = { status: newStatus };itemUpdateData
                 itemUpdateData.product_quantity = itemSnapshot.data().product_quantity;
                 const reservationSnapshot = await reservationListRef.get();
                 const reservationData = reservationSnapshot.data();
@@ -321,12 +360,14 @@ let CatNum=null;
             
             await borrowedItemsRef.get().then((docSnapshot) => {
                 if (docSnapshot.exists) {
+
                     borrowedItemsRef.update({
                         borrowTickets: firebase.firestore.FieldValue.arrayUnion(borrowCounter),
                         ID: contactId.value,
                         Name: contactName.value
                     });
                 } else {
+                  familiesValid=true;
                     borrowedItemsRef.set({
                         borrowTickets: [borrowCounter],
                         ID: contactId.value,
@@ -338,12 +379,17 @@ let CatNum=null;
             await borrowTicketsRef.set(borrowedItemData);
             await itemRef.update({ status: newStatus, product_quantity: newQuantity ,reserved_quantity:newReserved});
             await borrowCounterRef.update({ 'borrow counter': borrowCounter + 1 });
+         
             alert('המוצר הושאל בהצלחה');
         } catch (error) {
             console.error('Error saving the borrowed item:', error);
             alert('שגיאה בהשאלת המוצר');
         }
-
+        incrementBorrows();
+        await updateToolsDocument();
+        await incrementKeywords(itemName);
+        // Call the function
+      
 
         let answer = window.confirm('האם תרצה להשאיל מוצר נוסף');
         if (answer) {
@@ -362,6 +408,107 @@ let CatNum=null;
             location.reload();
         }
     });
+
+   async function incrementBorrows() {
+    // Get current month and year
+    let date = new Date();
+    let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let currentMonth = monthNames[date.getMonth()];
+    let currentYear = date.getFullYear();
+    let docId = currentMonth + ' ' + currentYear;
+  
+    // Update borrows field
+    let statisticsRef =firebase.firestore().collection('Monthly Statistics').doc(docId);
+    if (familiesValid)
+      {
+        statisticsRef.update({
+        borrows: firebase.firestore.FieldValue.increment(1),
+        families:firebase.firestore.FieldValue.increment(1)
+    }).then(() => {
+        console.log("Document successfully updated!");
+    }).catch((error) => {
+        console.error("Error updating document: ", error);
+    });
+}
+      else{
+    statisticsRef.update({
+        borrows: firebase.firestore.FieldValue.increment(1)
+    }).then(() => {
+        console.log("Document successfully updated!");
+    }).catch((error) => {
+        console.error("Error updating document: ", error);
+    });
+  }
+    }
+
+
+
+    async function updateToolsDocument() {
+    console.log(familiesValid);
+    const toolsDocRef = firebase.firestore().collection("Tools").doc("Statistics");
+    try {
+        const doc = await toolsDocRef.get();
+        if (!doc.exists) {
+            console.log('No such document!');
+        } else {
+            let totalBorrows = doc.data().TotalBorrows + 1;
+            console.log(totalBorrows);
+            if (familiesValid) {
+                console.log('familiesValid is true, updating TotalFamilies');
+                let totalFamilies = doc.data().TotalFamilies + 1;
+                console.log('TotalFamilies before update: ', totalFamilies);
+                await toolsDocRef.update({
+                    "TotalBorrows": totalBorrows,
+                    "TotalFamilies": totalFamilies
+                });
+                console.log('TotalFamilies after update: ', totalFamilies);
+            } else {
+                await toolsDocRef.update({
+                    "TotalBorrows": totalBorrows
+                });
+            }
+            console.log("Tools document successfully updated!");
+        }
+    } catch (error) {
+        console.error("Error updating tools document: ", error);
+    }
+}
+
+
+
+async function incrementKeywords(itemName) {
+    const itemRef = firebase.firestore().collection('inventory').doc(itemName);
+    const itemSnapshot = await itemRef.get();
+    if (itemSnapshot.exists) {
+        const keywords = itemSnapshot.data().keywords.split(','); // assuming keywords is a comma-separated string
+        const toolsDocRef = firebase.firestore().collection("Tools").doc("Statistics");
+        let updates = {};
+        keywords.forEach(keyword => {
+            keyword = keyword.trim(); // remove potential leading or trailing spaces
+            updates[`keywords.${keyword}`] = firebase.firestore.FieldValue.increment(1);
+        });
+
+        try {
+            await toolsDocRef.update(updates);
+            console.log("Keywords updated successfully!");
+        } catch (error) {
+            console.error("Error updating keywords: ", error);
+        }
+    } else {
+        console.error('Item does not exist');
+    }
+}
+
+
+
+
+
+
+  
+
+
+
+
 
   </script>
   </div>

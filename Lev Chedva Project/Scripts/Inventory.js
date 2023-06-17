@@ -8,6 +8,33 @@ document.getElementById('add-filter-btn').addEventListener('click', addFilter);
 document.getElementById('search-btn').addEventListener('click', searchBarProducts);
 document.getElementById('filter-btn').addEventListener('click', searchFilterProducts);
 
+let currentAuthorizations = []; // global variable
+
+firebase.auth().onAuthStateChanged(async (user) => {
+  if (user) {
+    // User is signed in, retrieve authorizations
+    try {
+      const doc = await db.collection("Volunteers").doc(user.email).get();
+      if (doc.exists) {
+        currentAuthorizations = doc.data().Authorizations;
+        console.log("Authorizations:", currentAuthorizations);
+      } else {
+        console.log("No such document!");
+      }
+    } catch (error) {
+      console.error("Error getting document:", error);
+    }
+  } else {
+    // User is signed out
+    console.log("No user is signed in.");
+  }
+});
+
+
+
+console.log(currentAuthorizations);
+
+
 
 function addFilter() {
   const filterName = prompt('Enter the name of the new filter:');
@@ -168,7 +195,6 @@ function displayProducts(ProductData) {
   
     
       detailsList.appendChild(ProductNameItem);
-
       detailsList.appendChild(DescriptionItem);
       detailsList.appendChild(QuantityItem);
       detailsList.appendChild(ReservedQuantityItem);
@@ -185,6 +211,7 @@ function displayProducts(ProductData) {
     
       const editProductBtn = document.createElement('button');
       editProductBtn.textContent = 'ערוך מוצר';
+      if(currentAuthorizations.includes("000"))
       detailsList.appendChild(editProductBtn);
       
 
@@ -324,6 +351,7 @@ function displayProducts(ProductData) {
 
     const deleteProductBtn = document.createElement('button');
 deleteProductBtn.textContent = 'מחק מוצר';
+if(currentAuthorizations.includes("000"))
 detailsList.appendChild(deleteProductBtn);
 
 // Step 2: Add an event listener to the "delete" button

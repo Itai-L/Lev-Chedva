@@ -64,8 +64,8 @@ li {
 
 .container {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction:row;
+  align-items:center;
   margin-right: 20px;
 }
 
@@ -113,18 +113,29 @@ button:hover {
   font-size: 14px;
   margin-right: 6px;
 }
-#searchbar{
-  position: relative;
-  right:24%;
+#searchbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.searchbar-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+#authorization-filter-label {
+  margin-right: 10px;
 }
 
 #authorization-filter{
-position: relative;
-right:15%;
-top:1.5rem;
+  margin-left: 60px;
 }
-#authorization-filter-label{
-position: relative;
-right:12%;
-top:3.5rem;
+input[type='text'] {
+  padding: 10px;
+  margin: 10px 0;
+  position: relative;
+  top:60%
+ 
 }

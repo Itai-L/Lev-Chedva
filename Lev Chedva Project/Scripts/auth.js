@@ -23,12 +23,12 @@ function validateUserAndRedirect() {
               // If the "Authorizations" array does not contain "000", redirect to page B
               window.location.href = "../Pages/Volunteer_Dashboard.html";
             }else{
-              window.location.href = "../Pages/MainPage.html";
+              window.location.href = "../Pages/MainPage/index.html";
             }
           } else {
             // If the document doesn't exist, log an error and redirect to an error page
             console.error("No such document!");
-            window.location.href = "error.html";
+            window.location.href = "../Pages/MainPage/index.html";
           }
         })
         .catch((error) => {

@@ -533,8 +533,12 @@ async function loadWaitingVolunteers()
                         authCell.appendChild(authForm);
             detailsRow.insertAdjacentElement('afterend', authRow);
                 }); 
+
+
+
+
                 authorizeBtn.addEventListener('click', function() {
-                    // First get the updated document
+                    incrementVolunteers();
                     db.collection("Volunteers Waiting").doc(doc.id).get()
                     .then(doc => {
                         if (doc.exists) {
@@ -548,6 +552,7 @@ async function loadWaitingVolunteers()
                                     loadWaitingVolunteers();
                                 });
                             });
+                            
                         } else {
                             console.log("No such document!");
                         }
@@ -568,4 +573,30 @@ async function loadWaitingVolunteers()
             });
         });
     });
+}
+
+
+
+
+function incrementVolunteers() {
+ 
+    let date = new Date();
+    let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let currentMonth = monthNames[date.getMonth()];
+    let currentYear = date.getFullYear();
+    let docId = currentMonth + ' ' + currentYear;
+  
+    // Update borrows field
+    let statisticsRef =firebase.firestore().collection('Monthly Statistics').doc(docId);
+    statisticsRef.update({
+        newVolunteers: firebase.firestore.FieldValue.increment(1)
+    }).then(() => {
+        console.log("Document successfully updated!");
+    }).catch((error) => {
+        console.error("Error updating document: ", error);
+    });
+
+
+    
+  
 }

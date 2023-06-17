@@ -71,7 +71,7 @@ function createButtons(autorizations) {
     // Add more mappings here...
   };
 
-  const mobileButtons = ["12", "13"]; // Example: Display buttons with authorization "10" and "11"
+  const mobileButtons = ["12", "13"];
 
   if (window.matchMedia('(max-width: 767px)').matches) {
     // Mobile devices: Display only mobile buttons
@@ -104,16 +104,7 @@ function createButtons(autorizations) {
 
 
 
-function saveUserToken(email, token) {
-  const userRef = firebase.firestore().collection('Volunteers').doc(email);
-  userRef.update({ fcmToken: token })
-    .then(() => {
-      console.log('FCM token saved for the user.');
-    })
-    .catch((error) => {
-      console.error("Error saving FCM token: ", error);
-    });
-}
+
 
 
 
@@ -139,7 +130,7 @@ function loadMessages(authorizations) {
           message.innerHTML = `
             <h2>${data.header}</h2>
             <p class="message-date">${new Date(data.timestamp.toDate()).toLocaleDateString()}</p>
-            <div class="message-preview">${data.message.substr(0, 100)}</div>
+            
             <div class="message-full">${data.message}</div>
           `;
           message.addEventListener('click', function() {
@@ -167,8 +158,8 @@ document.getElementById("updateSettings").addEventListener("click", function() {
 document.getElementById("logout").addEventListener("click", function() {
   firebase.auth().signOut().then(function() {
       // Sign-out successful, redirect to login page.
-      window.location.href = "MainPage_HE.html";
-  }).catch(function(error) {
+      window.location.href = "../Pages/MainPage/index.html";
+    }).catch(function(error) {
       // An error happened during sign out.
       console.error("Sign out error: ", error);
   });

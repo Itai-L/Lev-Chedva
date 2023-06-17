@@ -177,7 +177,7 @@
       const docSnapshot = await docRef.get();
 
       if (docSnapshot.exists) {
-        alert('A product with this category number already exists.');
+        alert('ישנו כבר מוצר בשם זה במלאי');
         return;
       }
 
@@ -198,17 +198,40 @@
           if (parseInt(categoryNumber) === counterValue + 1) {
             await db.collection('Tools').doc('Categorical Number').update({ 'counter': counterValue + 1 });
           }
-
-          alert('Product registered successfully!');
+          incrementNewProducts();
+          alert('מוצר נוסף בהצלחה!');
           form.reset();
           // Refresh the page
           location.reload();
         })
         .catch((error) => {
           console.error('Error registering product: ', error);
-          alert('Failed to register product.');
+          alert('שגיאה בהוספת המוצר');
         });
     });
+
+
+    function incrementNewProducts() {
+
+    let date = new Date();
+    let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let currentMonth = monthNames[date.getMonth()];
+    let currentYear = date.getFullYear();
+    let docId = currentMonth + ' ' + currentYear;
+  
+    // Update borrows field
+    let statisticsRef =firebase.firestore().collection('Monthly Statistics').doc(docId);
+    statisticsRef.update({
+        newProducts: firebase.firestore.FieldValue.increment(1)
+    }).then(() => {
+        console.log("Document successfully updated!");
+    }).catch((error) => {
+        console.error("Error updating document: ", error);
+    });
+  
+}
+
+
 
   </script>
 </body>

@@ -32,7 +32,7 @@ select {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  border: 2px solid #d25757;
+  border: 1.5px solid gray;
   border-radius: 4px;
 }
 
@@ -44,7 +44,7 @@ table {
 table,
 th,
 td {
-  border: 1px solid #d25757;
+  border: 1px solid gray;
   padding: 15px;
   text-align: right;
 }

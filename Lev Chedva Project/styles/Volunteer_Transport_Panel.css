@@ -85,7 +85,11 @@ button {
 button:hover {
   background-color: #c61f1f;
 }
-
+.button-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .color-legend {
   display: flex;
   flex-wrap: wrap;

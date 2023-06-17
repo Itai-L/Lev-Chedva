@@ -383,5 +383,17 @@ async function displayWinner(eventData) {
   readData();
   updateWinnersTable();
 
-
+  function handleMobileButtonClick() {
+    window.location.href = 'Volunteer_Events.html';
+  }
+  
+  window.addEventListener('DOMContentLoaded', () => {
+    const mobileButton = document.getElementById('mobileButton');
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      mobileButton.style.display = 'block';
+    } else {
+      mobileButton.style.display = 'none';
+    }
+  });
 

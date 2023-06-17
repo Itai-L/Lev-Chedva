@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../styles/logo_footer.css">
+    <title>Mobile Home</title>
+
+  
+</head>
+<body>
+    <div id="header">
+         <div class="logo-container">
+              <img src="../Pictures/logoLevChedva.png" alt="Logo" />
+        </div>
+    </div>
+    <div class="navbar" dir="rtl">
+        <a href="#" class="menu-icon" onclick="toggleMenu()">☰</a>
+        <ul class="menu" id="menu">
+          <li><a href="#section1" onclick="toggleMenuAndCollapse()">מי אנחנו</a></li>
+          <li><a href="#section2" onclick="toggleMenuAndCollapse()">הפעילות שלנו</a></li>
+          <li><a href="#section3" onclick="toggleMenuAndCollapse()">התנדבו איתנו</a></li>
+          <li><a href="#section4" onclick="toggleMenuAndCollapse()">לתרומה</a></li>
+          <li><a href="#section5" onclick="toggleMenuAndCollapse()">צור קשר</a></li>
+          <li><a href="login_HE.html">כניסת מתנדבים</a></li>
+        </ul>
+      </div>
+
+      <section id="banner"></section>
+
+    <section id="section1">
+        <div class="sec1">
+            <h2 style="color:#4f4e4ec6;">מי אנחנו</h2>
+            <p dir="rtl" style="font-size: 12px;">
+            בשנת 2020 התפרצה מגפת הקורונה ברחבי העולם בכלל, ובמדינת ישראל בפרט. 
+
+				משפחות רבות שחלו בנגיף החדש קרסו נפשית וכתוצאה מכך פנו לקבל סיוע בשלל תחומים, בהם: בריאות, בירוקרטיה, ועוד. 
+				
+				בעקבות הפניות הרבות הקמנו ״חמ״ל קורונה״ שטיפל בכל הצרכים של המשפחות בשיתוף כלל הגורמים הרשמיים בישראל, בהם: פיקוד העורף, עיריית ירושלים, קופות החולים, ועוד. 
+				
+				במהלך הגל השלישי עלה הצורך למחוללי חמצן ובהמשך עם הביקוש הרב והמחסור בציוד רפואי החלטנו להקים את ״לב חדוה״.
+				
+				אנו משתדלים לתת מענה 24/6, כיום שנתיים אחרי, זכינו לסייע למאות משפחות ובכל חודש אנו זוכים לסייע למעל 100 משפחות בציוד רפואי מגוון ובפתרונות ספיגה. 
+				
+				ב״לב חדוה״ לוקחים חלק מעל 100 מתנדבים ומתנדבות המסייעים בתפעול ושינוע הציוד הרפואי. הם מחולקים למספר יחידות בהם: שינוע, ג’יפים, טלפניות, ועוד.
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+          <div class="item">
+            <h4>להשאלת ציוד רפואי</h4>
+            <a href="Borrow_Application_HE.html" class="mobile-link">
+              <img src="./MainPage/Pictures/solidarity.png" alt="Icon" class="mobile-image">
+            </a>
+          </div>
+          <div class="item" id="section3">
+            <h4>התנדבו איתנו</h4>
+            <a href="sign_up_HE.html">
+              <img src="./MainPage/Pictures/community.png" alt="Icon" class="mobile-image">
+            </a>
+          </div>
+          <div class="item" id="section5">
+            <h4>מחסן הציוד</h4>
+            <img src="./MainPage/Pictures/donate.png" alt="Icon" class="mobile-image">
+            <p style="font-size: 14px;">
+                רחוב משה יוסטמן 2, שכונת גילה, ירושלים<br>
+                מוקד ''לב חדוה'' 24/6<br>
+                054-5420068
+              </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="section2">
+        <h2>הפעילות שלנו</h2>
+        <div class="container">
+            <div class="item slideshow-container">
+              <img id="mySlides" src="./MainPage/Pictures/Gallery/2.jpeg" alt="Slideshow Image" class="slideshow-image">
+            </div>
+          </div>
+    </section>
+    
+      <section>
+        <h2>כתבו עלינו</h2>
+        <div class="container">
+          <div class="item">
+            <p>
+                להכניס סטטיסטיקה
+            </p>
+          </div>
+        </div>
+    </section>
+
+    
+            
+          <script>
+            let slideIndex = 2;
+            const maxImages = 10; // Assuming you have 10 images, adjust accordingly
+            let slideshowInterval;
+          
+            function startSlideshow() {
+              slideshowInterval = setInterval(() => {
+                document.getElementById('mySlides').src = `./MainPage/Pictures/Gallery/${slideIndex}.jpeg`;
+                slideIndex = slideIndex % maxImages + 1;
+              }, 5000);
+            }
+          
+            function pauseSlideshow() {
+              clearInterval(slideshowInterval);
+            }
+          
+            document.getElementById('mySlides').addEventListener('mouseover', function() {
+              this.style.zIndex = '2'; // Set a higher z-index value
+              pauseSlideshow();
+            });
+          
+            document.getElementById('mySlides').addEventListener('mouseout', function() {
+              this.style.zIndex = '1'; // Reset the z-index value
+              startSlideshow();
+            });
+          
+            startSlideshow();
+          </script>
+          
+      
+    <section id="section4">
+        <h2>תרומות</h2>
+        <div class="container">
+            <div class="item">
+              <h4>לתרומת ציוד רפואי</h4>
+              <a href="Donation_Application_HE.html">
+                <img src="./MainPage/Pictures/donate.png" alt="Icon" class="mobile-image"></a>
+            </div>
+          
+          
+            <div class="item">
+              <h4>לתרומה מאובטחת באשראי</h4>
+              <a href="https://nedar.im/7005008">
+                <img src="./MainPage/Pictures/nedarim.jpg" alt="Icon" class="mobile-image"></a>
+            </div>
+          
+          
+            <div class="item">
+              <h4>לתרומה דרך ביט / פייבוקס</h4>
+              <img src="MainPage/Pictures/paybox_bit.png" alt="Icon" class="mobile-image bigger-image"></a>
+              <h5>054-5420068</h5>
+            </div>
+          
+          
+            <div class="item" style="max-width: 500px;">
+              <h4>העברה בנקאית</h4>
+              <img src="./MainPage/Pictures/bank_HE.jpg" alt="Icon" class="mobile-image">
+              <p style="font-size: 14px;">
+                בנק: מזרחי טפחות<br>
+                סניף: 479<br>
+                מספר חשבון: 166555<br>
+                עבור: לב חדוה
+              </p> 
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2023 LevChedva. All Rights Reserved.
+    </footer>
+      
+</body>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../firebase.js"></script>
+    <script>
+        function toggleMenu() {
+          var menu = document.getElementById("menu");
+          menu.classList.toggle("active");
+        }
+      
+        function toggleMenuAndCollapse() {
+          toggleMenu();
+          var menu = document.getElementById("menu");
+          menu.classList.remove("active");
+        }
+      </script>
+
+      
+<style>
+  
+ #banner {
+    background-image: url("MainPage/Pictures/WhatsApp\ Image\ 2023-05-30\ at\ 13.19.35.jpeg");
+    background-position: center center;
+    background-size: cover;
+    height: 10vh;
+    text-align: center;
+    position: relative;
+}
+    .mobile-image.bigger-image {
+  max-width: 30%;
+  margin: 0;
+  height: auto;
+}
+
+    .mobile-image {
+  max-width: 20%;
+  height: auto;
+}
+    .mobile-link {
+  display: block;
+  text-align: center;
+}
+
+@media screen and (max-width: 480px) {
+  .mobile-link {
+    display: flex;
+    justify-content: center;
+  }
+}
+   @media screen and (max-width: 720px) {
+            /* Styles for smaller screens */
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: "Assistent", sans-serif;
+            }
+  
+
+            .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.slideshow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .slideshow-image {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+  }
+.item {
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  border: 2px solid rgba(210, 87, 87, 0.844);
+  border-radius: 5px;
+}
+
+            .navbar {
+                display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  position: relative;
+}
+
+.navbar .logo {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0;
+}
+.sec1{
+    border-top: 1px solid #4f4e4ec6;
+    border-bottom: 1px solid #4f4e4ec6;
+}
+.navbar .menu-icon {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.navbar .menu-icon:hover {
+  color: #d25757;
+}
+.menu {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+            .navbar .menu {
+                display: none;
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                width: 100%;
+                background-color: #555;
+                z-index: 99;
+            }
+            .navbar .menu.active {
+  display: block;
+}
+
+            .navbar .menu li {
+                padding: 10px;
+                border-bottom: 1px solid #fff;
+            }
+
+            .navbar .menu li:last-child {
+                border-bottom: none;
+            }
+
+            .navbar .menu a {
+                color: #fff;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+            .navbar .menu a:hover {
+                color: #d25757;
+            }
+            section {
+                padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+section p {
+    font-size: 16px;
+}
+
+section a {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Adjust footer for mobile */
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+        }
+</style>
+</html>

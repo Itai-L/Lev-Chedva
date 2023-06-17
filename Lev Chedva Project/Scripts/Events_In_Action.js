@@ -488,10 +488,19 @@ function DisplayData(eventData) {
             detailsRow.remove();
             firebase.firestore().collection("Closed Events").doc(eventData.eventCounter.toString()).set({ eventData: closedEventData });
             firebase.firestore().collection("Open Events").doc(eventData.eventCounter.toString()).delete({ eventData });
+            incrementTransports();
           })
           .catch((error) => {
             console.error("שגיאה בעדכון המסמך: ", error);
           });
+          const toolsDocRef = firebase.firestore().collection("Tools").doc("Statistics");
+                
+                      toolsDocRef.update({
+                        "TotalEvents": firebase.firestore.FieldValue.increment(1)
+                      }).catch((error) => {
+                        console.error("שגיאה בעדכון מסמך הכלים: ", error);
+                      });
+
       } else {
         console.error("שגיאה: המסמך או המזהה של המסמך אינם מוגדרים");
       }
@@ -563,4 +572,26 @@ async function searchAcrossCollection(searchTerm) {
       }
     }
   });
+}
+
+
+
+function incrementTransports() {
+
+  let date = new Date();
+  let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  let currentMonth = monthNames[date.getMonth()];
+  let currentYear = date.getFullYear();
+  let docId = currentMonth + ' ' + currentYear;
+
+  // Update borrows field
+  let statisticsRef =firebase.firestore().collection('Monthly Statistics').doc(docId);
+  statisticsRef.update({
+    transports: firebase.firestore.FieldValue.increment(1)
+  }).then(() => {
+      console.log("Document successfully updated!");
+  }).catch((error) => {
+      console.error("Error updating document: ", error);
+  });
+
 }

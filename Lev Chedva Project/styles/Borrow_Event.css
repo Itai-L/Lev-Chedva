@@ -35,7 +35,7 @@ label {
   text-align: right;
 }
 
-input[type="text"],
+/* input[type="text"],
 input[type="number"],
 #remarks {
   font-size: 18px;
@@ -44,7 +44,7 @@ input[type="number"],
   border-radius: 4px;
   width: 300px;
   margin-bottom: 20px;
-}
+} */
 
 button {
   background-color: #d25757;
@@ -92,6 +92,16 @@ pre {
   word-wrap: break-word;
 }
 
+
+#search-input{
+  font-size: 18px;
+  padding: 8px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  width: 300px;
+}
+
+
 input[type="text"],
 input[type="number"],
 input[type="date"],
@@ -101,5 +111,25 @@ input[type="date"],
   border: 2px solid #ccc;
   border-radius: 4px;
   width: 300px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
+}
+
+
+.autocomplete-results {
+  position: relative;
+  top: 150%;
+  width: 100%;
+  border: 1px solid #aaa;
+  z-index: 1000;
+}
+
+.autocomplete-results div {
+  padding: 10px;
+  cursor: pointer;
+  background: #fff;
+  border-bottom: 1px solid #aaa;
+}
+
+.autocomplete-results div:hover {
+  background: #f0f0f0;
 }

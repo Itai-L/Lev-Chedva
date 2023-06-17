@@ -47,7 +47,7 @@ input[type="date"],
   border: 2px solid #ccc;
   border-radius: 4px;
   width: 300px;
-  margin-bottom: 20px;
+
 }
 
 button {
@@ -104,4 +104,26 @@ pre {
 
 .form-group label {
   margin-bottom: 5px;
+}
+.autocomplete {
+  margin-bottom: 40px; 
+}
+
+.autocomplete-results {
+  position: relative;
+  top: 150%;
+  width: 100%;
+  border: 1px solid #aaa;
+  z-index: 1000;
+}
+
+.autocomplete-results div {
+  padding: 10px;
+  cursor: pointer;
+  background: #fff;
+  border-bottom: 1px solid #aaa;
+}
+
+.autocomplete-results div:hover {
+  background: #f0f0f0;
 }

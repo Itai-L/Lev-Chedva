@@ -14,6 +14,43 @@ const reservedOn=document.getElementById('reservedOn');
 const reservedUntil=document.getElementById('reservedUntil');
 const remarks=document.getElementById('remarks');
 
+const autocompleteResults = document.querySelector('#autocomplete-results');
+
+let inventoryData = [];  // Array to store all inventory document data
+
+
+firebase.firestore().collection('inventory').get()
+  .then((snapshot) => {
+    snapshot.forEach((doc) => {
+      inventoryData.push({ id: doc.id, categorical_number: doc.data().categorical_number });
+    });
+  })
+  .catch((error) => {
+    console.error("Error getting documents from 'inventory':", error);
+  });
+
+// Add event listener to 'name' input
+catNumberInput.addEventListener('input', function(e) {
+  const userInput = e.target.value;
+ autocompleteResults.style.display="block";
+  // Clear current results:
+  if(userInput=="")
+  autocompleteResults.style.display="none";
+  autocompleteResults.innerHTML = '';
+
+  // Show new results:
+  inventoryData.filter(data => data.id.includes(userInput)).forEach(data => {
+    const result = document.createElement('div');
+    result.textContent = data.id;
+    result.addEventListener('click', function() {
+        catNumberInput.value = data.id;
+      autocompleteResults.innerHTML = '';
+    });
+    autocompleteResults.appendChild(result);
+  });
+});
+
+
 
 let foundItemCategorialNumber = null;
 let ProductName=null;

@@ -71,7 +71,8 @@ async function getReservationArchive() {
         reservationDate: 'הוזמן לתאריך',
         patientName: 'שם המטופל',
         volunteerName: 'שם המתנדב',
-        reservedOn:'הוזמן בתאריך'
+        reservedOn:'הוזמן בתאריך',
+        reservedUntil: 'הוזמן עד תאריך'
     };
     function displayDoc(doc) {
         let row = document.createElement('tr');
@@ -111,7 +112,7 @@ async function getReservationArchive() {
         // The list of keys to skip
         const skipKeys = ['product_name', 'categorialNumber'];
         // The list of keys to format as a date
-        const dateKeys = ['reservationDate', 'reservedOn'];
+        const dateKeys = ['reservationDate', 'reservedOn', 'reservedUntil'];
     
         let detailsRow = document.createElement('tr');
         let detailsCell = document.createElement('td');

@@ -16,7 +16,10 @@
 <body>
     <h1>הזמנה עתידית</h1>
     <div id="container">
-        <input type="text" id="cat-number-input" placeholder="הכנס שם מוצר.." />
+        <div class="autocomplete">
+            <input type="text" id="cat-number-input" placeholder="הכנס שם מוצר.." />
+            <div id="autocomplete-results" class="autocomplete-results" style="display: none;"></div>
+          </div>
         <button id="search-cat-number-btn">חפש לפי שם מוצר</button>
         <div id="item-data" style="display: none;"></div>
         <div id="reservation-details" style="display: none;">

@@ -163,14 +163,17 @@ function displayVolunteers(volunteerData) {
       detailsList.appendChild(manageAuthButton);
       let validBtn = false;
     
-      manageAuthButton.addEventListener('click', () => {
+      manageAuthButton.addEventListener('click', async () => {
         if (validBtn === true)
           return;
-    
+      
         const authRow = manageAuthButton.parentElement.nextElementSibling;
         if (authRow && authRow.classList.contains('volunteer-auth-row')) {
           authRow.parentElement.removeChild(authRow);
         } else {
+          const doc = await db.collection("Volunteers").doc(volunteerData.email).get();
+          const currentAuthorizations = doc.data().Authorizations;
+      
           const authRow = document.createElement('tr');
           authRow.classList.add('volunteer-auth-row');
           const authCell = document.createElement('td');
@@ -203,6 +206,7 @@ function displayVolunteers(volunteerData) {
                 { name: 'החזרת מוצר', value: '21' },
                 { name: 'השאלת מוצר', value: '22' },
                 { name: 'צפייה במלאי', value: '23' },
+                { name: 'צור הזמנה עתידית', value: '26' }
               ]
             },
             {
@@ -219,7 +223,7 @@ function displayVolunteers(volunteerData) {
               options: [
                 { name: 'צפה בבקשות השאלה', value: '28' },
                 { name: 'צפה בבקשות תרומה', value: '29' },
-                { name: 'צור הזמנה עתידית', value: '26' },
+                
               ]
             },
             {
@@ -237,53 +241,59 @@ function displayVolunteers(volunteerData) {
           categories.forEach(category => {
             const categoryDiv = document.createElement('div');
             categoryDiv.classList.add('category');
-          
+      
             const categoryLabel = document.createElement('div');
             categoryLabel.classList.add('category-title');
             categoryLabel.textContent = category.name;
             categoryDiv.appendChild(categoryLabel);
-          
+      
             const optionsDiv = document.createElement('div');
             optionsDiv.classList.add('options');
-          
+      
             const checkboxesContainer = document.createElement('div');
             checkboxesContainer.classList.add('checkboxes-container');
-          
+      
             category.options.forEach(option => {
               const checkboxContainer = document.createElement('div');
               checkboxContainer.classList.add('checkbox-container');
-          
+      
               const checkbox = document.createElement('input');
               checkbox.type = 'checkbox';
               checkbox.id = option.value;
               checkbox.name = option.name;
               checkbox.value = option.value;
               checkbox.classList.add('checkbox');
-          
+      
+              // Check if the current option value is in the currentAuthorizations array
+              if (currentAuthorizations.includes(option.value)) {
+                // If it is, check the checkbox
+                checkbox.checked = true;
+              }
+      
               const label = document.createElement('label');
               label.htmlFor = option.value;
               label.appendChild(document.createTextNode(option.name));
               label.classList.add('checkbox-label');
-          
+      
               checkboxContainer.appendChild(checkbox);
               checkboxContainer.appendChild(label);
-          
+      
               checkboxesContainer.appendChild(checkboxContainer);
             });
-          
+      
             optionsDiv.appendChild(checkboxesContainer);
             categoryDiv.appendChild(optionsDiv);
             authForm.appendChild(categoryDiv);
           });
-          
+      
           const submitButton = document.createElement('button');
           submitButton.textContent = 'שמור';
           authForm.appendChild(submitButton);
           submitButton.addEventListener('click', (e) => {
             e.preventDefault();
-    
+      
             const selectedAuths = Array.from(authForm.querySelectorAll('input[type=checkbox]:checked')).map(cb => cb.value);
-
+      
             const docRef = db.collection("Volunteers").doc(volunteerData.email);
             docRef.update({
               Authorizations: selectedAuths
@@ -293,17 +303,16 @@ function displayVolunteers(volunteerData) {
             }).catch((error) => {
               console.error("Error updating document: ", error);
             });
-    
+      
             validBtn = false;
           });
-    
+      
           authCell.appendChild(authForm);
           authRow.appendChild(authCell);
           manageAuthButton.parentElement.parentElement.after(authRow);
         }
         validBtn = true;
       });
-    
       const editUserBtn = document.createElement('button');
       editUserBtn.textContent = 'ערוך פרטי משתמש';
       detailsList.appendChild(editUserBtn);
@@ -396,4 +405,61 @@ deleteUserBtn.addEventListener('click', async () => {
   });
 }
    
-    
+
+
+
+
+document.getElementById('exportButton').addEventListener('click', async () => {
+  const snapshot = await firebase.firestore().collection('Volunteers').get();
+
+  const fields = {
+      "firstName": "שם פרטי",
+      "lastName": "שם משפחה",
+      "phone": "טלפון",
+      "ID": "תעודת זהות",
+      "BirthDate": "תאריך לידה",
+      "createdAt": "תאריך הצטרפות",
+      "email": "אימייל",
+      "address": "כתובת"
+  };
+
+  let textContent = '';
+
+  snapshot.forEach(doc => {
+      const data = doc.data();
+
+      for (let field in fields) {
+          if (data[field]) {
+              if (data[field].seconds !== undefined) {
+                  let createdAt = new Date(data[field].seconds * 1000);
+                  let createdAtString = createdAt.getDate() + '/' + (createdAt.getMonth() + 1) + '/' + createdAt.getFullYear();
+                  textContent += `${fields[field]}: ${createdAtString}\n`;
+              } else if (typeof data[field] === "string") {
+                  let createdAt = new Date(data[field]);
+                  if (!isNaN(createdAt)) {
+                      let createdAtString = createdAt.getDate() + '/' + (createdAt.getMonth() + 1) + '/' + createdAt.getFullYear();
+                      textContent += `${fields[field]}: ${createdAtString}\n`;
+                  } else {
+                      textContent += `${fields[field]}: ${data[field]}\n`;
+                  }
+              } else {
+                  textContent += `${fields[field]}: ${data[field]}\n`;
+              }
+          } else {
+              textContent += `${fields[field]}: 1.06.23\n`;
+          }
+      }
+
+      textContent += '\n'; // Add a blank line after each document
+  });
+
+  const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', 'Volunteers.txt');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+});
+

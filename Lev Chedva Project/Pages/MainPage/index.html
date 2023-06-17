@@ -6,9 +6,16 @@
 -->
 <html>
 	<head>
+		<script type="text/javascript">
+			// Redirect mobile devices to mobile_home.html
+			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+				window.location.href = "../mobile_home.html"
+			}
+		</script>
+		
 		<title>לב חדוה</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="viewport"/>
 		<link rel="icon" href="./Pictures/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
@@ -27,18 +34,37 @@
 
 						<nav id="nav">
 							<ul>
-								<li class="current"><a href="index.html"><b>דף הבית</b></a></li>
+								<li class="current"><a href="index.html"><b>מי אנחנו</b></a></li>
 								<li><a href="#section3"><b>הפעילות שלנו</b></a></li>
+								<li><a href="#section1"><b>התנדבו איתנו</b></a></li>
 								<li><a href="#section3"><b>כתבו עלינו</b></a></li>
 								<li><a href="#section5"><b>לתרומה</b></a></li>
-								<li><a href="#footer"><b>צור קשר</b></a></li>
-								<li><a href="../login_HE.html"><b>כניסת מתנדבים</b></a></li>
+								<li><a href="#section1"><b>צור קשר</b></a></li>
+								<li><a href="../login_HE.html" style="color: rgba(69, 66, 66, 0.809);"><b>כניסת מתנדבים</b></a></li>
 							</ul>
 						</nav>
 
 				</div>
 				<style>
 					/* navbar */
+					#nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+
+    #nav li {
+        margin-right: 1em;
+    }
+	/* Media Query for small screens */
+    @media screen and (max-width: 600px) {
+        #nav li {
+            margin-right: 0.5em;
+        }
+    }
 				
 					#languages {
 						display: flex;
@@ -73,7 +99,7 @@
 			<header class="major">
 
 
-				<h2 style="color: #4f4e4ec6;">קצת עלינו</h2>
+				<h2 style="color: #4f4e4ec6; font-size: 30px;">קצת עלינו</h2>
 				<p id="aboutUs" dir="rtl">
 				בשנת 2020 התפרצה מגפת הקורונה ברחבי העולם בכלל, ובמדינת ישראל בפרט. 
 
@@ -121,9 +147,10 @@
 						<div class="box highlight">
 							<img src="./Pictures/donate.png" alt="Icon" id="icon">
 							<h3>מחסן הציוד</h3>
-							<p>משה יוסטמן 2, גילה, ירושלים<br>
+							<p>רחוב משה יוסטמן 2, שכונת גילה, ירושלים<br>
 								מוקד ''לב חדוה'' 24/6<br>
-								054-5420068</p>
+								054-5420068
+							</p>
 						</div>
 					</section>
 				</div>
@@ -175,7 +202,7 @@
 
 	<style>
 		#aboutUs{
-			font-size: 24px;
+			font-size: 18px;
 		}
 		.wrapper {
         padding: 1em;
@@ -291,7 +318,7 @@ a.button:focus {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -386,17 +413,13 @@ p {
 <div id="footer">
     <div class="col-6 col-12-narrower" id="contact">
         <p id="footerParagraph">
-			<h4>צרו קשר</h4>
-			054-5420068-אליהו<br>
-		משה יוסטמן 2, גילה, ירושלים<br>
-			מוקד ''לב חדוה'' 24/6</p>
+			&copy; 2023 LevChedva. All Rights Reserved.
+		</p>
     </div>  
 </div>
 
 <style>
-	h4{
-		font-size: 24px;
-	}
+	
 	#footerParagraph{
 		font-size: 18px;
 		margin: 0px;

@@ -307,6 +307,7 @@ AdressItem2.appendChild(googleMapsLink2.cloneNode(true)); // Clone the elements 
                     console.error("Error: eventData or eventData.eventCounter is undefined");
                   }
                   alert("תודה רבה! שינוע נעים!");
+                 
                 });
                 
                 
@@ -327,28 +328,22 @@ AdressItem2.appendChild(googleMapsLink2.cloneNode(true)); // Clone the elements 
                     }).then(() => {
                       row.remove();
                       detailsRow.remove();
-                
+                      
+                      
+
                       // Update Volunteer document
                       const volunteerDocRef = firebase.firestore().collection("Volunteers").doc(userEmail);
                 
                       volunteerDocRef.update({
-                        "total events": firebase.firestore.FieldValue.increment(1), // increment total events by 1
-                        "monthly events": firebase.firestore.FieldValue.increment(1), // increment monthly events by 1
+                        "totalEvents": firebase.firestore.FieldValue.increment(1), // increment total events by 1
+                        "monthlyEvents": firebase.firestore.FieldValue.increment(1), // increment monthly events by 1
                         latestEvent: deliveredTime // update latestEvent field with deliveredTime
                       }).catch((error) => {
                         console.error("שגיאה בעדכון מסמך המתנדב: ", error);
                       });
+                    
                 
-                      // Update Tools collection
-                      const toolsDocRef = firebase.firestore().collection("Tools").doc("Statistics");
-                
-                      toolsDocRef.update({
-                        "Total Events": firebase.firestore.FieldValue.increment(1), // increment Total events by 1
-                        "Monthly Events": firebase.firestore.FieldValue.increment(1), // increment Monthly Events by 1
-                        "Yearly Events":firebase.firestore.FieldValue.increment(1)
-                      }).catch((error) => {
-                        console.error("שגיאה בעדכון מסמך הכלים: ", error);
-                      });
+                 
                     }).catch((error) => {
                       console.error("שגיאה בעדכון המסמך: ", error);
                     });
@@ -409,4 +404,19 @@ AdressItem2.appendChild(googleMapsLink2.cloneNode(true)); // Clone the elements 
       console.log("משתמש לא מחובר");
     }
   });
+
+function handleMobileButtonClick() {
+  window.location.href = 'Volunteer_Transport_Panel.html';
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const mobileButton = document.getElementById('mobileButton');
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    mobileButton.style.display = 'block';
+  } else {
+    mobileButton.style.display = 'none';
+  }
+});
+
   

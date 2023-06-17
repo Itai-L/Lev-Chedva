@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>סטטסטיקות העמותה</title>
+    <link rel="stylesheet" href="../styles/Statistics.css">
+</head>
+<body>
+    <h1 id="monthYear"></h1>
+
+    <select id="monthSelector">
+        <option value="January">ינואר</option>
+        <option value="February">פברואר</option>
+        <option value="March">מרץ</option>
+        <option value="April">אפריל</option>
+        <option value="May">מאי</option>
+        <option value="June">יוני</option>
+        <option value="July">יולי</option>
+        <option value="August">אוגוסט</option>
+        <option value="September">ספטמבר</option>
+        <option value="October">אוקטובר</option>
+        <option value="November">נובמבר</option>
+        <option value="December">דצמבר</option>
+    </select>
+    
+    <select id="yearSelector">
+    </select>
+
+    <button id="fetchStats">בחר</button>
+
+    <div id="statistics"></div>
+    <div id="statistics">
+        <ul id="statsList"></ul>
+        <button id="transportBtn">שינועים לפי מתנדבים</button>
+    </div>
+    <button id="yearlyReportBtn">דו"ח שנתי</button>
+    <select id="yearSelectorReport"></select>
+    <button id="generateChartButton">גרף השאלות לפי סוגי מוצרים</button>
+    <div id="yearlyReport"></div>
+    <table id="volunteerTable" style="display: none;">
+        <thead>
+            <tr>
+                <th>שם פרטי</th>
+                <th>שם משפחה</th>
+                <th>שינועים החודש</th>
+                <th>סה"כ שינועים</th>
+                <th>שינוע אחרון</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data rows will go here -->
+        </tbody>
+    </table>
+    
+    
+    <div style="width: 400px; height: 400px;">
+        <canvas id="keywordsChart"></canvas>
+        <div id="listContainer"></div>
+
+      </div>
+      
+    
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../firebase.js"></script>
+    <script src="../Scripts/Statistics.js"></script>
+</body>
+</html>

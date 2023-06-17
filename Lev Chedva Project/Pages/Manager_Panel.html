@@ -17,7 +17,7 @@
       </a>
     </div>
       <h1>פאנל מנהל</h1>
-      
+     <button class="square-button" id="logoutButton">יציאה</button>
       <div id="group1" class="button-container">
         <h2>שינוע</h2>
         <button class="square-button"><a href="../Pages/New_Event.html">יצירת אירוע חדש</a></button>
@@ -68,7 +68,19 @@
   const auth = firebase.auth();
   const db = firebase.firestore();
   
-  
+  // Get a reference to the logout button
+const logoutButton = document.getElementById('logoutButton');
+
+logoutButton.addEventListener('click', function() {
+    firebase.auth().signOut().then(function() {
+      window.location.href = "MainPage/index.html";
+        console.log('User Logged Out!');
+    }).catch(function(error) {
+        // An error happened.
+        console.error('Error during signout', error);
+    });
+});
+
   
   
   auth.onAuthStateChanged(user => {
@@ -100,14 +112,36 @@
   
   }
   });
-          // function toggleDisplay(id) {
-          //     const element = document.getElementById(id);
-          //     if (element.style.display === "none") {
-          //         element.style.display = "block";
-          //     } else {
-          //         element.style.display = "none";
-          //     }
-          // }
+  async function updateInventoryAndVolunteerCounts() {
+    // Get references to the required collections
+    const inventoryRef = firebase.firestore().collection('inventory');
+    const volunteersRef = firebase.firestore().collection('Volunteers');
+    const toolsRef = firebase.firestore().collection('Tools').doc('Statistics');
+
+    try {
+        // Get all documents from 'inventory' and 'Volunteers' collections
+        const [inventorySnapshot, volunteersSnapshot] = await Promise.all([inventoryRef.get(), volunteersRef.get()]);
+
+        // Count the number of documents
+        const inventoryCount = inventorySnapshot.size;
+        const volunteerCount = volunteersSnapshot.size;
+
+        // Update the 'Statistics' document in the 'Tools' collection
+        await toolsRef.update({
+            'TotalInventory': inventoryCount,
+            'TotalVolunteers': volunteerCount
+        });
+
+        console.log("Tools document successfully updated!");
+
+    } catch (error) {
+        console.error("Error in updating document counts: ", error);
+    }
+}
+
+// Call the function
+updateInventoryAndVolunteerCounts();
+
       </script>
   </div>
   <footer>
