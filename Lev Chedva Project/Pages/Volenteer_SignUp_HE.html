@@ -15,9 +15,9 @@
       <h1>יצירת מתנדב חדש</h1>
       <form id="volunteer-form">
           <label for="firstName">שם פרטי:</label>
-          <input type="text" pattern="[a-z,A-Z,\u05D0-\u05EA]*" id="firstName" name="firstName" required>
+          <input type="text" pattern="[a-z,A-Z,\u05D0-\u05EA,',-,\s,&quot;]*"  id="firstName" name="firstName" required>
           <label for="lastName">שם משפחה:</label>
-          <input type="text" pattern="[a-z,A-Z,\u05D0-\u05EA]*" id="lastName" name="lastName" required>
+          <input type="text" pattern="[a-z,A-Z,\u05D0-\u05EA,',-,\s,&quot;]*" id="lastName" name="lastName" required>
           <label for="ID">מספר ת.ז:</label>
           <input type="text" pattern="[0-9]{9,9}" id="ID" name="ID" required>
           <label for="BirthDate">תאריך לידה:</label>
@@ -28,7 +28,7 @@
           <label for="phone">טלפון:</label>
           <input type="tel" pattern="[0-9]{9,10}" id="phone" name="phone" required>
           <label for="EmergencyContactName">שם איש קשר לשעת חירום:</label>
-          <input type="text" pattern="[a-z,A-Z,\u05D0-\u05EA,\s]*" id="EmergencyContactName" name="EmergencyContactName" required>
+          <input type="text" pattern="[a-z,A-Z,\u05D0-\u05EA,',-,\s,&quot;]*" id="EmergencyContactName" name="EmergencyContactName" required>
           <label for="EmergencyContactPhone">טלפון ליצירת קשר לשעת חירום:</label>
           <input type="text" pattern="[0-9]{9,10}" id="EmergencyContactPhone" name="EmergencyContactPhone" required>
           <label for="numVehicles">מספר רכבים:</label>
@@ -62,7 +62,7 @@
             </div>
             <div class="checkbox-wrapper">
                 <label for="Volunteer_Type5">איש קשר לשעת חירום</label>
-                <input type="checkbox" id="Volunteer_Type5" name="Volunteer_Type" value="איש קשר לשעת חירום">
+                <input type="checkbox" id="Volunteer_Type5" pattern="[a-z,A-Z,\u05D0-\u05EA,',-,\s,&quot;]*" name="Volunteer_Type" value="איש קשר לשעת חירום">
             </div>
         </div>
         <button type="submit">צור מתנדב</button>
