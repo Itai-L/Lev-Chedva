@@ -1,97 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>טופס השאלת ציוד</title>
-	<link rel="stylesheet" type="text/css" href="../styles/Borrow_style_HE.css">
-  <link rel="stylesheet" type="text/css" href="../styles/logo_footer.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>טופס השאלת ציוד</title>
+    <link rel="stylesheet" type="text/css" href="../styles/Borrow_style_HE.css">
+    <link rel="stylesheet" type="text/css" href="../styles/logo_footer.css">
 
 </head>
 <body>
-  <div class="content-wrapper">
+<div class="content-wrapper">
     <div class="logo-container">
-      <a href="#" onclick="validateUserAndRedirect(); return false;">
-        <img src="../Pictures/logoLevChedva.png" alt="Logo" />
-      </a>
+        <a href="#" onclick="validateUserAndRedirect(); return false;">
+            <img src="../Pictures/logoLevChedva.png" alt="Logo" />
+        </a>
     </div>
     <form>
-          <h1>טופס השאלת ציוד</h1>
-      <label class = "form_labels" for="contact-name">:שם מלא</label>
-      <input class = "form_fill_boxes" type="text" id="contact-name" name="contact-name" required><br><br>
-      
-      <label class = "form_labels" for="contact-number">:מספר טלפון ליצירת קשר</label>
-      <input class = "form_fill_boxes" type="tel" id="contact-number" name="contact-number" required><br><br>
-      
-      <label class = "form_labels" for="patient-name">:שם המטופל</label>
-      <input class = "form_fill_boxes" type="text" id="patient-name" name="patient-name" required><br><br>
-      
-      <label class = "form_labels" for="patient-number">:מספר הטלפון של המטופל</label>
-      <input class = "form_fill_boxes" type="tel" id="patient-number" name="patient-number" required><br><br>
-      
-      <label class = "form_labels" for="address">:כתובת</label>
-      <textarea class = "form_fill_boxes" id="address" name="address" required></textarea><br><br>
-                
-      <input type="button" value="שלח" onclick="submitData()">
+        <h1>טופס השאלת ציוד</h1>
+        <label class = "form_labels" for="contact-name">:שם מלא</label>
+        <input class = "form_fill_boxes" type="text" id="contact-name" name="contact-name" required><br><br>
+
+        <label class = "form_labels" for="contact-number">:מספר טלפון ליצירת קשר</label>
+        <input class = "form_fill_boxes" type="tel" id="contact-number" name="contact-number" required><br><br>
+
+        <label class = "form_labels" for="patient-name">:שם המטופל</label>
+        <input class = "form_fill_boxes" type="text" id="patient-name" name="patient-name" required><br><br>
+
+        <label class = "form_labels" for="patient-number">:מספר הטלפון של המטופל</label>
+        <input class = "form_fill_boxes" type="tel" id="patient-number" name="patient-number" required><br><br>
+
+        <label class = "form_labels" for="address">:כתובת</label>
+        <textarea class = "form_fill_boxes" id="address" name="address" required></textarea><br><br>
+
+        <input type="button" value="שלח" onclick="submitData()">
     </form>
-    
+
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-        <script src="../firebase.js"></script>
-        <script src="../Scripts/auth.js"></script>
-      <script>
-  
-  
-  // Initialize Firestore
-  const db = firebase.firestore();
-  
-  // Get form elements
-  const contactNameInput = document.getElementById("contact-name");
-  const contactNumberInput = document.getElementById("contact-number");
-  const patientNameInput = document.getElementById("patient-name");
-  const patientNumberInput = document.getElementById("patient-number");
-  const addressInput = document.getElementById("address");
-  
-  // Function to submit form data to Firestore
-  function submitData() {
-    // Get the values from the form
-    const contactName = contactNameInput.value;
-    const contactNumber = contactNumberInput.value;
-    const patientName = patientNameInput.value;
-    const patientNumber = patientNumberInput.value;
-    const address = addressInput.value;
-   
-  // Loop through the delivery type options and check which one is selected
-  
-  
-  // Save the form data to Firestore
-  db.collection("Borrow_List").add({
-      contact_name: contactName,
-      contact_number: contactNumber,
-      patient_name: patientName,
-      patient_number: patientNumber,
-      address: address,
-      date: firebase.firestore.Timestamp.fromDate(new Date()), // Current date and time
-  })
-  .then(() => {
-  console.log("Form data saved successfully!");
-  // Clear the form inputs after submission
-  contactNameInput.value = "";
-  contactNumberInput.value = "";
-  patientNameInput.value = "";
-  patientNumberInput.value = "";
-  addressInput.value = "";
-  })
-  .catch((error) => {
-  console.error("Error saving form data: ", error);
-  });
-  }
-   </script>
-  </div>
- <footer>
-  <p class="copyright">
-      &copy; 2023 LevChedva. All rights reserved.
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../firebase.js"></script>
+    <script src="../Scripts/auth.js"></script>
+    <script>
+
+
+        // Initialize Firestore
+        const db = firebase.firestore();
+
+        // Get form elements
+        const contactNameInput = document.getElementById("contact-name");
+        const contactNumberInput = document.getElementById("contact-number");
+        const patientNameInput = document.getElementById("patient-name");
+        const patientNumberInput = document.getElementById("patient-number");
+        const addressInput = document.getElementById("address");
+
+        // Function to submit form data to Firestore
+        function submitData() {
+            // Get the values from the form
+            const contactName = contactNameInput.value;
+            const contactNumber = contactNumberInput.value;
+            const patientName = patientNameInput.value;
+            const patientNumber = patientNumberInput.value;
+            const address = addressInput.value;
+
+            // Loop through the delivery type options and check which one is selected
+
+
+            // Save the form data to Firestore
+            db.collection("Borrow_List").add({
+                contact_name: contactName,
+                contact_number: contactNumber,
+                patient_name: patientName,
+                patient_number: patientNumber,
+                address: address,
+                date: firebase.firestore.Timestamp.fromDate(new Date()), // Current date and time
+            })
+                .then(() => {
+                    console.log("Form data saved successfully!");
+                    // Clear the form inputs after submission
+                    contactNameInput.value = "";
+                    contactNumberInput.value = "";
+                    patientNameInput.value = "";
+                    patientNumberInput.value = "";
+                    addressInput.value = "";
+                })
+                .catch((error) => {
+                    console.error("Error saving form data: ", error);
+                });
+        }
+    </script>
+</div>
+<footer>
+    <p class="copyright">
+        &copy; 2023 LevChedva. All rights reserved.
     </p>
 </footer>
 </body>
