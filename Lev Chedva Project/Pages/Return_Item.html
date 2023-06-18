@@ -339,7 +339,8 @@ searchByCatBtn.addEventListener('click', () => {
 
     
 async function returnItem() {
-  
+  if(!validateForm)
+  return;
     try {
         console.log(ChosenTicket);
         const borrowedTicketsRef = firebase.firestore().collection('Borrow Tickets').doc(ChosenTicket);
@@ -418,6 +419,31 @@ async function returnItem() {
         alert('שגיאה בהחזרת המוצר.');
     }
 }
+
+
+
+function validateForm() {
+  let isValid = true;
+
+  const returnQuantity = document.getElementById("return-quantity");
+  if (!returnQuantity.value || returnQuantity.value <= 0) {
+    returnQuantity.style.border = '2px solid red';
+    isValid = false;
+  } else {
+    returnQuantity.style.border = '';
+  }
+
+  const returnName = document.getElementById("return-name");
+  if (!returnName.value) {
+    returnName.style.border = '2px solid red';
+    isValid = false;
+  } else {
+    returnName.style.border = '';
+  }
+
+  return isValid;
+}
+
 
 </script>
 </body>

@@ -33,12 +33,16 @@ auth.onAuthStateChanged(user => {
             .then(doc => {
               if (doc.exists) {
                 let data = doc.data();
+                if (doc.exists && doc.data().latestEvent && doc.data().monthlyEvents && doc.data().totalEvents) {
+                  statsBox.style.display="block";
                 monthlyBorrowsElement.textContent = data.monthlyEvents;
                 totalEventsElement.textContent = data.totalEvents;
                 var lastEventTimestamp = data.latestEvent.toDate();
                 var lastEventDate = new Date(lastEventTimestamp);
                 var options = { year: 'numeric', month: 'long', day: 'numeric', locale: 'he-IL' };
                 lastEventElement.textContent = lastEventDate.toLocaleDateString('he-IL', options);
+                }
+                // checkVolunteerStats();
                 document.getElementById('username').textContent = `${data.firstName} ${data.lastName}`;
                 let autorizations = data.Authorizations;
                 autorizations.sort();
@@ -78,7 +82,6 @@ function checkVolunteerStats(email) {
 }
 
 
-checkVolunteerStats();
 
 
 

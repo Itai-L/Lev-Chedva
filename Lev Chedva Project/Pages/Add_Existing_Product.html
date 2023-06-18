@@ -19,7 +19,10 @@
       <label for="product-name">שם המוצר: </label>
     </div>
     <form id="search-form">
-      <input type="text" id="product-name" name="product-name" required><br><br>
+      <input type="text" id="product-name" name="product-name" required>
+      <div id="autocomplete-results" class="autocomplete-results" style="display: none;"></div>
+
+      <br><br>
       <button class="search-button" type="button" onclick="searchProduct()">חפש מוצר</button>
     </form>
     <p></p>
@@ -46,7 +49,48 @@
     <script>
       // Get a reference to the Firestore database
       const db = firebase.firestore();
-  
+      const autocompleteResults = document.querySelector('#autocomplete-results');
+      const catNumberInput=document.getElementById("product-name");
+      let inventoryData = [];  // Array to store all inventory document data
+
+      firebase.firestore().collection('inventory').get()
+  .then((snapshot) => {
+    snapshot.forEach((doc) => {
+      inventoryData.push({ id: doc.id, categorical_number: doc.data().categorical_number });
+    });
+  })
+  .catch((error) => {
+    console.error("Error getting documents from 'inventory':", error);
+  });
+
+
+
+      catNumberInput.addEventListener('input', function(e) {
+    const userInput = e.target.value;
+  autocompleteResults.style.display="block";
+    // Clear current results:
+    if(userInput=="")
+    autocompleteResults.style.display="none";
+    autocompleteResults.innerHTML = '';
+
+    // Show new results:
+    inventoryData.filter(data => data.id.includes(userInput)).forEach(data => {
+      const result = document.createElement('div');
+      result.textContent = data.id;
+      result.addEventListener('click', function() {
+          catNumberInput.value = data.id;
+        autocompleteResults.innerHTML = '';
+      });
+      autocompleteResults.appendChild(result);
+    });
+  });
+
+
+
+
+
+
+
       async function searchProduct() {
         const productName = document.getElementById('product-name').value;
         const querySnapshot = await db.collection('inventory').where('categorial_number', '==', productName).get();

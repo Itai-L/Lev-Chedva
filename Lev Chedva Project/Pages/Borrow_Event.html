@@ -34,40 +34,50 @@
     <div id="item-data" style="display: none;"></div>
     <div id="item-details" style="display: none;">
       <div class="field-container">
-        <label for="patient-name">שם מטופל:</label>
+        <label for="address">שם מטופל:</label>
         <input type="text" id="patient-name" name="patient-name" />
+        <small class="error-message" id="patient-error"></small>
       </div>
+
       <div class="field-container">
         <label for="address">כתובת מטופל:</label>
         <input type="text" id="address" name="address" />
+        <small class="error-message" id="address-error"></small>
       </div>
       <div class="field-container">
         <label for="contact-name">שם האיש קשר:</label>
         <input type="text" id="contact-name" name="contact-name" />
+        <small class="error-message" id="contact-name-error"></small>
       </div>
       <div class="field-container">
         <label for="contact-id">ת.ז איש קשר:</label>
         <input type="text" id="contact-id" name="contact-id" />
+        <small class="error-message" id="contact-id-error"></small>
       </div>
       <div class="field-container">
         <label for="contact-phone">טלפון איש קשר:</label>
         <input type="text" id="contact-phone" name="contact-phone" />
+        <small class="error-message" id="contact-phone-error"></small>
       </div>
       <div class="field-container">
         <label for="contact-phone2">טלפון איש קשר נוסף:</label>
         <input type="text" id="contact-phone2" name="contact-phone2" />
+        <small class="error-message" id="contact-phone2-error"></small>
       </div>
       <div class="field-container">
         <label for="borrowing-quantity">כמות להשאלה:</label>
         <input type="number" id="borrowing-quantity" name="borrowing-quantity" />
+        <small class="error-message" id="borrowing-quantity-error"></small>
       </div>
       <div class="field-container">
         <label for="borrowing-from">משאיל מתאריך:</label>
         <input type="date" id="borrowing-from" name="borrowing-from" />
+        <small class="error-message" id="borrowing-from-error"></small>
       </div>
       <div class="field-container">
         <label for="borrowing-until">משאיל עד לתאריך:</label>
         <input type="date" id="borrowing-until" name="borrowing-until" />
+        <small class="error-message" id="borrowing-until-error"></small>
       </div>
       <div class="field-container">
         <label for="remarks">הערות:</label>
@@ -76,7 +86,9 @@
       <div class="field-container">
         <label for="loaning_volunteer">שם המתנדב:</label>
         <input type="text" id="loaning_volunteer" name="loaning_volunteer" />
-      </div>  
+        <small class="error-message" id="loaning_volunteer-error"></small>
+      </div>
+      
         <button id="save-btn">השאל</button>
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
@@ -281,6 +293,10 @@ let newReserved=0;
     
 
       saveBtn.addEventListener('click', async () => {
+
+        if(!validateForm())
+        return;
+
           let itemName = searchInput.value;
           if (!contactId.value) {
             event.preventDefault(); // Prevent form submission
@@ -519,6 +535,43 @@ async function incrementKeywords(itemName) {
 
 
 
+function validateForm() {
+    let isValid = true;
+    const nameRegex = /^[a-zA-Zא-ת ,'"\-]*$/;
+    const idRegex = /^[0-9]{9,9}$/;
+    const phoneRegex = /^[\+0-9]{10,15}$/;
+    const quantityRegex = /^[0-9]*$/;
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // simple check for date format yyyy-mm-dd
+
+    const checkField = (fieldId, regex, errorMsg) => {
+        const field = document.getElementById(fieldId);
+        const fieldError = document.getElementById(`${fieldId}-error`);
+        if (field.value.trim() === '') {
+            field.style.border = '2px solid red';
+            fieldError.textContent = 'השדה הזה לא יכול להיות ריק';
+            isValid = false;
+        } else if (!regex.test(field.value)) {
+            field.style.border = '2px solid red';
+            fieldError.textContent = errorMsg;
+            isValid = false;
+        } else {
+            field.style.border = '';
+            fieldError.textContent = '';
+        }
+    }
+
+   // checkField("address", nameRegex, 'פורמט הכתובת לא חוקי');
+    checkField("contact-name", nameRegex, 'פורמט השם לא חוקי');
+    checkField("contact-id", idRegex, 'מספר הזהות לא חוקי');
+    checkField("contact-phone", phoneRegex, 'מספר הטלפון לא חוקי');
+    //checkField("contact-phone2", phoneRegex, 'מספר הטלפון הנוסף לא חוקי');
+    checkField("borrowing-quantity", quantityRegex, 'כמות להשאלה לא חוקית');
+    // checkField("borrowing-from", dateRegex, 'פורמט התאריך לא חוקי');
+    // checkField("borrowing-until", dateRegex, 'פורמט התאריך לא חוקי');
+    checkField("loaning_volunteer", nameRegex, 'פורמט שם המתנדב לא חוקי');
+
+    return isValid;
+}
 
 
   

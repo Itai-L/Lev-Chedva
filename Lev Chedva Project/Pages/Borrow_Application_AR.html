@@ -4,43 +4,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>טופס השאלת ציוד</title>
+  <title>استمارة إعارة المعدات</title>
   <link rel="stylesheet" type="text/css" href="../styles/Borrow_style_HE.css">
   <link rel="stylesheet" type="text/css" href="../styles/logo_footer.css">
 </head>
 <body>
   <div class="content-wrapper">
     <div class="logo-container">
-      <a href="../Pages/MainPage/index.html">
+      <a href="../Pages/MainPage/index_AR.html">
         <img src="../Pictures/logoLevChedva.png" alt="Logo" />
       </a>
     </div>
     <form>
-      <h1>טופס השאלת ציוד</h1>
-      <label class="form_labels" for="contact-name">שם מלא:</label>
+      <h1>استمارة إعارة المعدات</h1>
+      <label class="form_labels" for="contact-name">الاسم الكامل:</label>
       <input class="form_fill_boxes" type="text" id="contact-name" name="contact-name" required>
       <small id="contact-name-error" class="error-message"></small><br><br>
 
-      <label class="form_labels" for="contact-number">מספר טלפון ליצירת קשר:</label>
+      <label class="form_labels" for="contact-number">رقم هاتف الاتصال:</label>
       <input class="form_fill_boxes" type="tel" id="contact-number" name="contact-number" required>
       <small id="contact-number-error" class="error-message"></small><br><br>
 
-      <label class="form_labels" for="contact-number2">מספר טלפון נוסף ליצירת קשר:</label>
+      <label class="form_labels" for="contact-number2"> هاتف آخر:</label>
       <input class="form_fill_boxes" type="tel" id="contact-number2" name="contact-number2" required>
       <small id="contact-number2-error" class="error-message"></small><br><br>
 
-      <label class = "form_labels" for="patient-name">שם המטופל:</label>
+      <label class = "form_labels" for="patient-name"> اسم المريض:</label>
       <input class = "form_fill_boxes" type="text" id="patient-name" name="patient-name">
       <small id="patient-name-error" class="error-message"></small><br><br>
 
-      <label class = "form_labels" for="patient-number">מספר הטלפון של המטופל:</label>
+      <label class = "form_labels" for="patient-number">هاتف المريض::</label>
       <input class = "form_fill_boxes" type="tel" id="patient-number" name="patient-number">
       <small id="patient-number-error" class="error-message"></small><br><br>
 
-      <label class = "form_labels" for="address">כתובת:</label>
+      <label class = "form_labels" for="address">العنوان:</label>
       <textarea class = "form_fill_boxes" id="address" name="address" ></textarea><br><br>
       <div class="button-container">
-        <input type="button" value="שלח" onclick="submitData()">
+        <input type="button" value="يرسل" onclick="submitData()">
       </div>
       
     </form>
@@ -55,7 +55,7 @@
       function submitData() {
         // Validate the form
         if (!validateForm()) {
-            alert("אחד הפרטים שהזנת אינו נכון");
+            alert("أحد التفاصيل التي أدخلتها غير صحيحة");
             return;
         }
         const contactNumberInput = document.getElementById("contact-number");
@@ -99,68 +99,69 @@
       }
 
       // Function to validate each field
-      function validateForm() {
-        let isValid = true;
-        const nameRegex = /^[a-zA-Zא-ת ,'"\-]*$/;
-        const phoneRegex = /^[0-9+-]{9,14}$/;
+  function validateForm() {
+  let isValid = true;
+  const nameRegex = /^[a-zA-Zא-ת ,'"\-]*$/;
+  const phoneRegex = /^[0-9+-]{9,14}$/;
 
-        const contactName = document.getElementById("contact-name");
-        const contactNameError = document.getElementById("contact-name-error");
-        if (!contactName.value || !nameRegex.test(contactName.value)) {
-            contactName.style.border = '2px solid red';
-            contactNameError.textContent = 'שם לא תקני';
-            isValid = false;
-        } else {
-            contactName.style.border = '';
-            contactNameError.textContent = '';
-        }
+  const contactName = document.getElementById("contact-name");
+  const contactNameError = document.getElementById("contact-name-error");
+  if (!contactName.value || !nameRegex.test(contactName.value)) {
+    contactName.style.border = '2px solid red';
+    contactNameError.textContent = 'اسم غير صحيح';
+    isValid = false;
+  } else {
+    contactName.style.border = '';
+    contactNameError.textContent = '';
+  }
 
-        const contactNumber = document.getElementById("contact-number");
-        const contactNumberError = document.getElementById("contact-number-error");
-        if (!contactNumber.value || !phoneRegex.test(contactNumber.value)) {
-            contactNumber.style.border = '2px solid red';
-            contactNumberError.textContent = 'מספר טלפון לא תקני';
-            isValid = false;
-        } else {
-            contactNumber.style.border = '';
-            contactNumberError.textContent = '';
-        }
+  const contactNumber = document.getElementById("contact-number");
+  const contactNumberError = document.getElementById("contact-number-error");
+  if (!contactNumber.value || !phoneRegex.test(contactNumber.value)) {
+    contactNumber.style.border = '2px solid red';
+    contactNumberError.textContent = 'رقم هاتف غير صحيح';
+    isValid = false;
+  } else {
+    contactNumber.style.border = '';
+    contactNumberError.textContent = '';
+  }
 
-        const contactNumber2 = document.getElementById("contact-number2");
-        const contactNumber2Error = document.getElementById("contact-number2-error");
-        if (!contactNumber2.value || !phoneRegex.test(contactNumber2.value)) {
-            contactNumber2.style.border = '2px solid red';
-            contactNumber2Error.textContent = 'מספר טלפון לא תקני';
-            isValid = false;
-        } else {
-            contactNumber2.style.border = '';
-            contactNumber2Error.textContent = '';
-        }
+  const contactNumber2 = document.getElementById("contact-number2");
+  const contactNumber2Error = document.getElementById("contact-number2-error");
+  if (!contactNumber2.value || !phoneRegex.test(contactNumber2.value)) {
+    contactNumber2.style.border = '2px solid red';
+    contactNumber2Error.textContent = 'رقم هاتف غير صحيح';
+    isValid = false;
+  } else {
+    contactNumber2.style.border = '';
+    contactNumber2Error.textContent = '';
+  }
 
-        const patientName = document.getElementById("patient-name");
-        const patientNameError = document.getElementById("patient-name-error");
-        if (patientName.value && !nameRegex.test(patientName.value)) {
-            patientName.style.border = '2px solid red';
-            patientNameError.textContent = 'שם לא תקני';
-            isValid = false;
-        } else {
-            patientName.style.border = '';
-            patientNameError.textContent = '';
-        }
+  const patientName = document.getElementById("patient-name");
+  const patientNameError = document.getElementById("patient-name-error");
+  if (patientName.value && !nameRegex.test(patientName.value)) {
+    patientName.style.border = '2px solid red';
+    patientNameError.textContent = 'اسم غير صحيح';
+    isValid = false;
+  } else {
+    patientName.style.border = '';
+    patientNameError.textContent = '';
+  }
 
-        const patientNumber = document.getElementById("patient-number");
-        const patientNumberError = document.getElementById("patient-number-error");
-        if (patientNumber.value && !phoneRegex.test(patientNumber.value)) {
-            patientNumber.style.border = '2px solid red';
-            patientNumberError.textContent = 'מספר טלפון לא תקני';
-            isValid = false;
-        } else {
-            patientNumber.style.border = '';
-            patientNumberError.textContent = '';
-        }
+  const patientNumber = document.getElementById("patient-number");
+  const patientNumberError = document.getElementById("patient-number-error");
+  if (patientNumber.value && !phoneRegex.test(patientNumber.value)) {
+    patientNumber.style.border = '2px solid red';
+    patientNumberError.textContent = 'رقم هاتف غير صحيح';
+    isValid = false;
+  } else {
+    patientNumber.style.border = '';
+    patientNumberError.textContent = '';
+  }
 
-        return isValid;
-      }
+  return isValid;
+}
+
     </script>
   </div>
   <footer>

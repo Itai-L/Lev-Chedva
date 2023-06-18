@@ -93,7 +93,7 @@ function DisplayData(eventData) {
       
       // Create an anchor element for the Waze navigation
       const wazeLink = document.createElement('a');
-      wazeLink.href = "https://www.waze.com/ul?ll=" + encodeURI(sourceAddress); // Encode the address for the URL
+      wazeLink.href = "https://www.waze.com/ul?q=" + encodeURI(sourceAddress); // Encode the address for the URL
       wazeLink.target = "_blank"; // Open link in a new tab
       
       // Create an image element for the Waze icon
@@ -129,7 +129,7 @@ function DisplayData(eventData) {
       
       // Create an anchor element for the Waze navigation (destination)
       const wazeLink2 = document.createElement('a');
-      wazeLink2.href = "https://www.waze.com/ul?ll=" + encodeURI(destinationAddress); // Encode the address for the URL
+      wazeLink2.href = "https://www.waze.com/ul?q=" + encodeURI(destinationAddress); // Encode the address for the URL
       wazeLink2.target = "_blank"; // Open link in a new tab
       
       // Create an image element for the Waze icon (destination)

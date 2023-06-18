@@ -48,8 +48,40 @@
     <div class="container">
         <img src="../Pictures/404.png" alt="errorPage" width="500">
         <p>שגיאה</p>
-        <p>אופס...הדף שחיפשת לא נמצא</p>
+        <p>אופס...כנראה שהייתה בעיה בהרשמה. לחצו על הפתור ונסו להירשם מחדש</p>
         <button id="errorButton">לחץ כאן</button>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
+    <script src="../firebase.js"></script>
+
+<!-- Pages/MainPage/index.html' -->
+<script>
+  // Get the URL parameters
+  let urlParams = new URLSearchParams(window.location.search);
+  
+  // Get the email from the URL parameters
+  let email = urlParams.get('email');
+  console.log(email);
+  
+  const logoutButton = document.getElementById('errorButton');
+  logoutButton.addEventListener('click', () => deleteUser(email));
+  
+  function deleteUser(email) {
+    // Call the cloud function
+    firebase.functions().httpsCallable('deleteUser')({email: email})
+      .then(() => {
+        console.log("User deletion request sent successfully");
+         window.location.href = "../Pages/MainPage/index.html";
+      })
+      .catch((error) => {
+        console.error("Error sending user deletion request:", error);
+        window.location.href = "../Pages/MainPage/index.html";
+      });
+  }
+  </script>
+  
 </body>
 </html>

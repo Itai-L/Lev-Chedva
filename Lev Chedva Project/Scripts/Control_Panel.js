@@ -745,12 +745,29 @@ async function loadWaitingVolunteers()
                 });
 
 
-            doNotAuthorizeBtn.addEventListener('click', function() {
-                // Delete the doc from the current collection
-                if (confirm('האם תרצה למנוע גישה למשתמש זה?')) {
-                    db.collection("Volunteers Waiting").doc(doc.id).delete();
-                }
-            });
+                doNotAuthorizeBtn.addEventListener('click', function() {
+                    // Delete the doc from the current collection
+                    if (confirm('האם תרצה למנוע גישה למשתמש זה?')) {
+                      const email = doc.id;
+                      db.collection("Volunteers Waiting").doc(email).delete()
+                        .then(() => {
+                          // After deleting the document, call the cloud function to delete the user
+                          firebase.functions().httpsCallable('deleteUser')({email: email})
+                            .then(() => {
+                              console.log("User deletion request sent successfully");
+                              row.remove(); // To remove the entire row after form submission
+                              loadWaitingVolunteers();
+                            })
+                            .catch((error) => {
+                              console.error("Error sending user deletion request:", error);
+                            });
+                        })
+                        .catch((error) => {
+                          console.error("Error removing document: ", error);
+                        });
+                    }
+                  });
+                  
 
            
             });

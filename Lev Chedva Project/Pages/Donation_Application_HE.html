@@ -10,7 +10,7 @@
 <body>
   <div class="content-wrapper">
     <div class="logo-container">
-      <a href="#" onclick="validateUserAndRedirect(); return false;">
+      <a href="../Pages/MainPage/index.html">
         <img src="../Pictures/logoLevChedva.png" alt="Logo" />
       </a>
     </div>
@@ -47,7 +47,9 @@
   
   // Function to submit form data to Firestore
   function submitData() {
-    // Get the values from the form
+    // if (!validateForm())
+    //   return;
+    
     const name = nameInput.value;
     const Phone_Num = Phone_NumInput.value;
     const Phone_Num2 = Phone_NumInput2.value;
@@ -72,7 +74,63 @@
       console.error("Error adding document: ", error);
       alert("שגיאה");
     });
+  
   }
+
+  function validateForm() {
+  let isValid = true;
+  const nameRegex = /^[a-zA-Zא-ת ,'"\-]*$/;
+  const phoneRegex = /^[0-9+-]{9,14}$/;
+
+  const contactName = document.getElementById("name");
+  const contactNameError = document.getElementById("contact-name-error");
+  if (!contactName.value || !nameRegex.test(contactName.value)) {
+    contactName.style.border = '2px solid red';
+    contactNameError.textContent = 'שם לא תקני';
+    isValid = false;
+  } else {
+    contactName.style.border = '';
+    contactNameError.textContent = '';
+  }
+
+  const contactNumber = document.getElementById("Phone Number");
+  const contactNumberError = document.getElementById("contact-number-error");
+  if (!contactNumber.value || !phoneRegex.test(contactNumber.value)) {
+    contactNumber.style.border = '2px solid red';
+    contactNumberError.textContent = 'מספר טלפון לא תקני';
+    isValid = false;
+  } else {
+    contactNumber.style.border = '';
+    contactNumberError.textContent = '';
+  }
+
+  const contactNumber2 = document.getElementById("Phone Number2");
+  const contactNumber2Error = document.getElementById("contact-number2-error");
+  if (!contactNumber2.value || !phoneRegex.test(contactNumber2.value)) {
+    contactNumber2.style.border = '2px solid red';
+    contactNumber2Error.textContent = 'מספר טלפון לא תקני';
+    isValid = false;
+  } else {
+    contactNumber2.style.border = '';
+    contactNumber2Error.textContent = '';
+  }
+
+  const patientName = document.getElementById("Product");
+  const patientNameError = document.getElementById("patient-name-error");
+  if (patientName.value && !nameRegex.test(patientName.value)) {
+    patientName.style.border = '2px solid red';
+    patientNameError.textContent = 'שם לא תקני';
+    isValid = false;
+  } else {
+    patientName.style.border = '';
+    patientNameError.textContent = '';
+  }
+
+  return isValid;
+}
+
+
+
       </script>
   </div>
   <footer>

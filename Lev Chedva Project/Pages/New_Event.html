@@ -22,92 +22,74 @@
           <input id="name" type="text">
           <div id="autocomplete-results" class="autocomplete-results" style="display: none;"></div>
         </div><br><br>
-    
-
-      <label for="type">:סוג</label>
-      <select id="type" name="type">
-        <option value="שינוע">שינוע</option>
-        <option value="ביקור">ביקור</option>
-        <option value="אחר">אחר</option>
-      </select><br><br>
       
-      <label for="urgency">:דחיפות</label>
-      <select id="urgency" name="urgency">
-
-        <option value="Urgent">דחוף</option>
-        <option value="Whoever Can">רגיל</option>
-
-
-      </select><br><br>
-
-      <label for="size">:גודל המוצר</label>
-      <select id="size" name="size">
-        <option value="ענק">ענק</option>
-        <option value="גדול">גדול</option>
-        <option value="בינוני">בינוני</option>
-        <option value="קטן">קטן</option>
-        <option value="אחר">אחר</option>
-      </select><br><br>
+        <label for="type">:סוג</label>
+        <select id="type" name="type">
+          <option value="שינוע">שינוע</option>
+          <option value="ביקור">ביקור</option>
+          <option value="אחר">אחר</option>
+        </select><br><br>
       
-      <label for="weight">:משקל המוצר</label>
-      <select id="weight" name="weight">
-
-        <option value="כבד מאוד"> מעל 30 ק"ג</option>
-        <option value="כבד">עד 30 ק"ג</option>
-        <option value="בינוני">עד 20 ק"ג</option>
-        <option value="קל">עד 10 ק"ג</option>
-        <option value="אחר">אחר</option>
-      </select><br><br>
+        <label for="urgency">:דחיפות</label>
+        <select id="urgency" name="urgency">
+          <option value="Urgent">דחוף</option>
+          <option value="Whoever Can">רגיל</option>
+        </select><br><br>
       
-      <label for="jeep">יחידת הג'יפים</label>
-      <input type="checkbox" id="jeep" name="jeep"><br><br>
+        <label for="size">:גודל המוצר</label>
+        <select id="size" name="size">
+          <option value="ענק">ענק</option>
+          <option value="גדול">גדול</option>
+          <option value="בינוני">בינוני</option>
+          <option value="קטן">קטן</option>
+          <option value="אחר">אחר</option>
+        </select><br><br>
       
-      <label for="jeep">יחידת אופנועים</label>
-      <input type="checkbox" id="motorcycle" name="motorcycle"><br><br>
+        <label for="weight">:משקל המוצר</label>
+        <select id="weight" name="weight">
+          <option value="כבד מאוד"> מעל 30 ק"ג</option>
+          <option value="כבד">עד 30 ק"ג</option>
+          <option value="בינוני">עד 20 ק"ג</option>
+          <option value="קל">עד 10 ק"ג</option>
+          <option value="אחר">אחר</option>
+        </select><br><br>
       
-      <label for="contact-name">:איש קשר באיסוף</label>
-
-      <input type="text" id="contact-name" pattern="[a-z,A-Z,\u05D0-\u05EA,\s]*" name="contact-name"><br><br>
-
+        <label for="jeep">יחידת הג'יפים</label>
+        <input type="checkbox" id="jeep" name="jeep"><br><br>
       
-      <label for="contact-phone">:טלפון איש קשר באיסוף</label>
-      <input type="tel" id="contact-phone" pattern="[0-9]{9,10}" name="contact-phone"><br><br>
-    
-      <label for="Source_Address">:כתובת איסוף</label>
-      <input type="text" id="Source_Address" name="Source_Address"><br><br>
-  
-      <label for="contact-name-destination">:איש קשר ביעד</label>
-
-      <input type="text" id="contact-name-destination" pattern="[a-z,A-Z,\u05D0-\u05EA,\s]*" name="contact-name-destination"><br><br>
-
+        <label for="jeep">יחידת אופנועים</label>
+        <input type="checkbox" id="motorcycle" name="motorcycle"><br><br>
       
-      <label for="contact-phone-destination">:טלפון איש קשר ביעד</label>
-      <input type="tel" id="contact-phone-destination" pattern="[0-9]{9,10}" name="contact-phone-destination"><br><br>
-
-      <label for="Destination_Address">:כתובת יעד</label>
-      <input type="text" id="Destination_Address" name="Destination_Address"><br><br>
+        <label for="contact-name">:איש קשר באיסוף</label>
+        <input type="text" id="contact-name"  name="contact-name">
+        <small class="error-message" id="contact-name-error"></small><br><br>
       
-      <label for="remarks">:הערות</label>
-      <textarea id="remarks" name="remarks"></textarea><br><br>
+        <label for="contact-phone">:טלפון איש קשר באיסוף</label>
+        <input type="tel" id="contact-phone" pattern="[0-9]{9,10}" name="contact-phone">
+        <small class="error-message" id="contact-phone-error"></small><br><br>
       
-      <input type="submit"  value="צור אירוע">
-    </form>
-    <!-- <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/firebase-messaging-sw.js')
-            .then((registration) => {
-              // Registration was successful
-              console.log('Service Worker registered:', registration);
-            })
-            .catch((error) => {
-              // Registration failed
-              console.error('Service Worker registration failed:', error);
-            });
-        });
-      }
-    </script> -->
-    
+        <label for="Source_Address">:כתובת איסוף</label>
+        <input type="text" id="Source_Address" name="Source_Address">
+        <small class="error-message" id="source-address-error"></small><br><br>
+      
+        <label for="contact-name-destination">:איש קשר ביעד</label>
+        <input type="text" id="contact-name-destination" pattern="[a-z,A-Z,\u05D0-\u05EA,\s]*" name="contact-name-destination">
+        <small class="error-message" id="contact-name-destination-error"></small><br><br>
+      
+        <label for="contact-phone-destination">:טלפון איש קשר ביעד</label>
+        <input type="tel" id="contact-phone-destination" pattern="[0-9]{9,10}" name="contact-phone-destination">
+        <small class="error-message" id="contact-phone-destination-error"></small><br><br>
+      
+        <label for="Destination_Address">:כתובת יעד</label>
+        <input type="text" id="Destination_Address" name="Destination_Address">
+        <small class="error-message" id="destination-address-error"></small><br><br>
+      
+        <label for="remarks">:הערות</label>
+        <textarea id="remarks" name="remarks"></textarea><br><br>
+      
+        <input type="submit" value="צור אירוע">
+      </form>
+      
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
       <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
       <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -117,16 +99,7 @@
       <script src="../Scripts/auth.js"></script>
       <script>
 
-        function checkNumericInput() {
-          var input = document.getElementById("contact-phone").value;
-          var numericPattern = /^[0-9]+$/;
-
-          if (numericPattern.test(input)) {
-            alert("Input contains numbers only");
-          } else {
-            alert("Input contains invalid characters");
-          }
-        }
+      
 
         // Get form elements
         const form = document.querySelector('#open-events-form');
@@ -192,7 +165,10 @@
         // Add submit event listener
         form.addEventListener('submit', (e) => {
           e.preventDefault();
-      
+      if(!validateForm())
+      {
+        return;
+      }
           firebase.firestore().collection("Tools").doc("Events Counter")
             .get()
             .then((doc) => {
@@ -250,6 +226,64 @@
             });
         });
     });
+
+// Function to validate each field
+function validateForm() {
+    let isValid = true;
+    const nameRegex = /^[a-zA-Zא-ת ,'"\-]*$/;
+      const phoneRegex = /^[\+0-9]{9,14}$/;
+
+    const contactName = document.getElementById("contact-name");
+    const contactNameError = document.getElementById("contact-name-error");
+    if (!nameRegex.test(contactName.value)) {
+        contactName.style.border = '2px solid red';
+        contactNameError.textContent = 'שם לא תקין';
+        isValid = false;
+    } else {
+        contactName.style.border = '';
+        contactNameError.textContent = '';
+    }
+
+    const contactPhone = document.getElementById("contact-phone");
+    const contactPhoneError = document.getElementById("contact-phone-error");
+    if (!phoneRegex.test(contactPhone.value)) {
+        contactPhone.style.border = '2px solid red';
+        contactPhoneError.textContent = 'מספר טלפון לא תקין';
+        isValid = false;
+    } else {
+        contactPhone.style.border = '';
+        contactPhoneError.textContent = '';
+    }
+
+    const contactNameDestination = document.getElementById("contact-name-destination");
+    const contactNameDestinationError = document.getElementById("contact-name-destination-error");
+    if (!nameRegex.test(contactNameDestination.value)) {
+        contactNameDestination.style.border = '2px solid red';
+        contactNameDestinationError.textContent = 'שם לא תקין';
+        isValid = false;
+    } else {
+        contactNameDestination.style.border = '';
+        contactNameDestinationError.textContent = '';
+    }
+
+    const contactPhoneDestination = document.getElementById("contact-phone-destination");
+    const contactPhoneDestinationError = document.getElementById("contact-phone-destination-error");
+    if (!phoneRegex.test(contactPhoneDestination.value)) {
+        contactPhoneDestination.style.border = '2px solid red';
+        contactPhoneDestinationError.textContent = 'מספר טלפון לא תקין';
+        isValid = false;
+    } else {
+        contactPhoneDestination.style.border = '';
+        contactPhoneDestinationError.textContent = '';
+    }
+
+    return isValid;
+}
+
+
+
+
+    
   </script>
   </div>
   <footer>

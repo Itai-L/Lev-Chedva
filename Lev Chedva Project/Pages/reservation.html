@@ -28,49 +28,57 @@
                 <div class="form-group">
                     <label>שם המטופל</label>
                     <input type="text" id="patient-name" />
+                    <small class="error-message" id="patient-name-error"></small>
                 </div>
-                <label>שם האיש קשר</label>
-                <input type="text" id="contact-name" />
-            </div>
-            <div class="form-group">
-                <label>טלפון איש קשר</label>
-                <input type="tel" id="phone-number-1" />
-            </div>
-            <div class="form-group">
-                <label>טלפון איש קשר נוסף</label>
-                <input type="tel" id="phone-number-2" />
-            </div>
-            <div class="form-group">
-                <label>כמות להזמנה</label>
-                <input type="number" id="reservation-quantity" min="1" />
-            </div>
-            <div class="form-group">
-                <label>הוזמן בתאריך</label>
-                <input type="date" id="reservedOn" />
-            </div>
-            <div class="form-group">
-                <label>הזמנה לתאריך</label>
-                <input type="date" id="reservation-date" />
-            </div>
-           
-            <div class="form-group">
-                <label>הוזמן עד לתאריך</label>
-                <input type="date" id="reservedUntil" />
-            </div>
-
-
-            <div class="form-group">
-                <label for="remarks">הערות:</label>
-                <textarea id="remarks" name="remarks" rows="4" cols="50"></textarea>
-              </div>
-            <div class="form-group">
-                <label>שם המתנדב</label>
-                <input type="text" id="volunteer-name" />
-            </div>
-            <div class="form-group">
-                <button id="reserve-btn">שמור</button>
-            </div>
-        </div>
+                <div class="form-group">
+                    <label>שם האיש קשר</label>
+                    <input type="text" id="contact-name" />
+                    <small class="error-message" id="contact-name-error"></small>
+                </div>
+                <div class="form-group">
+                    <label>טלפון איש קשר</label>
+                    <input type="tel" id="phone-number-1" />
+                    <small class="error-message" id="phone-number-1-error"></small>
+                </div>
+                <div class="form-group">
+                    <label>טלפון איש קשר נוסף</label>
+                    <input type="tel" id="phone-number-2" />
+                    <small class="error-message" id="phone-number-2-error"></small>
+                </div>
+                <div class="form-group">
+                    <label>כמות להזמנה</label>
+                    <input type="number" id="reservation-quantity" min="1" />
+                    <small class="error-message" id="reservation-quantity-error"></small>
+                </div>
+                <div class="form-group">
+                    <label>הוזמן בתאריך</label>
+                    <input type="date" id="reservedOn" />
+                    <small class="error-message" id="reservedOn-error"></small>
+                </div>
+                <div class="form-group">
+                    <label>הזמנה לתאריך</label>
+                    <input type="date" id="reservation-date" />
+                    <small class="error-message" id="reservation-date-error"></small>
+                </div>
+                <div class="form-group">
+                    <label>הוזמן עד לתאריך</label>
+                    <input type="date" id="reservedUntil" />
+                    <small class="error-message" id="reservedUntil-error"></small>
+                </div>
+                <div class="form-group">
+                    <label for="remarks">הערות:</label>
+                    <textarea id="remarks" name="remarks" rows="4" cols="50"></textarea>
+                    <small class="error-message" id="remarks-error"></small>
+                </div>
+                <div class="form-group">
+                    <label>שם המתנדב</label>
+                    <input type="text" id="volunteer-name" />
+                    <small class="error-message" id="volunteer-name-error"></small>
+                </div>
+                <div class="form-group">
+                    <button id="reserve-btn">שמור</button>
+                </div>
+                
         
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>

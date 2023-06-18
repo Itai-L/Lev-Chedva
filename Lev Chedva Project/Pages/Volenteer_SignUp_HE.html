@@ -14,23 +14,37 @@
       </div>
       <h1>יצירת מתנדב חדש</h1>
       <form id="volunteer-form">
-          <label for="firstName">שם פרטי:</label>
-          <input type="text" pattern="[a-z,A-Z,\u05D0-\u05EA]*" id="firstName" name="firstName" required>
-          <label for="lastName">שם משפחה:</label>
-          <input type="text" pattern="[a-z,A-Z,\u05D0-\u05EA]*" id="lastName" name="lastName" required>
-          <label for="ID">מספר ת.ז:</label>
-          <input type="text" pattern="[0-9]{9,9}" id="ID" name="ID" required>
-          <label for="BirthDate">תאריך לידה:</label>
-          <input type="date" id="BirthDate" name="BirthDate" required>
-
-          <label for="address">כתובת:</label>
-          <input type="text" id="address" name="address" required>
-          <label for="phone">טלפון:</label>
-          <input type="tel" pattern="[0-9]{9,10}" id="phone" name="phone" required>
-          <label for="EmergencyContactName">שם איש קשר לשעת חירום:</label>
-          <input type="text" pattern="[a-z,A-Z,\u05D0-\u05EA,\s]*" id="EmergencyContactName" name="EmergencyContactName" required>
-          <label for="EmergencyContactPhone">טלפון ליצירת קשר לשעת חירום:</label>
-          <input type="text" pattern="[0-9]{9,10}" id="EmergencyContactPhone" name="EmergencyContactPhone" required>
+        <label for="firstName">שם פרטי:</label>
+        <input type="text"  id="firstName" name="firstName" required>
+        <small id="firstName-error" class="form-error"></small>
+    
+        <label for="lastName">שם משפחה:</label>
+        <input type="text"  id="lastName" name="lastName" required>
+        <small id="lastName-error" class="form-error"></small>
+    
+        <label for="ID">מספר ת.ז:</label>
+        <input type="text"  id="ID" name="ID" required>
+        <small id="ID-error" class="form-error"></small>
+    
+        <label for="BirthDate">תאריך לידה:</label>
+        <input type="date" id="BirthDate" name="BirthDate" required>
+        <small id="BirthDate-error" class="form-error"></small>
+    
+        <label for="address">כתובת:</label>
+        <input type="text" id="address" name="address" required>
+        <small id="address-error" class="form-error"></small>
+    
+        <label for="phone">טלפון:</label>
+        <input type="tel" id="phone" name="phone" required>
+        <small id="phone-error" class="form-error"></small>
+    
+        <label for="EmergencyContactName">שם איש קשר לשעת חירום:</label>
+        <input type="text"  id="EmergencyContactName" name="EmergencyContactName" required>
+        <small id="EmergencyContactName-error" class="form-error"></small>
+    
+        <label for="EmergencyContactPhone">טלפון ליצירת קשר לשעת חירום:</label>
+        <input type="text"  id="EmergencyContactPhone" name="EmergencyContactPhone" required>
+        <small id="EmergencyContactPhone-error" class="form-error"></small>
           <label for="numVehicles">מספר רכבים:</label>
           <select id="numVehicles" name="numVehicles">
             <option value="0">0</option>
@@ -76,11 +90,11 @@
       <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
       <script src="../firebase.js"></script>
       <script>
-         const email = localStorage.getItem('email');
+         let email = localStorage.getItem('email');
           console.log(email); // "user@example.com"
-  
+          email=email.toLowerCase();
     
-        
+          console.log(email); // "user@example.com"
         // Get a reference to the volunteer form
         const volunteerForm = document.getElementById("volunteer-form");
         
@@ -110,7 +124,8 @@
         // Add an event listener to the volunteer form
         volunteerForm.addEventListener("submit", (event) => {
           event.preventDefault();
-          
+          if(!validateForm())
+          return;
           // Get the values from the form
           const firstName = document.getElementById("firstName").value;
           const lastName = document.getElementById("lastName").value;
@@ -184,6 +199,50 @@
     }
     return volunteerTypes;
   }
+
+
+
+  function validateForm() {
+    let isValid = true;
+    const nameRegex = /^[a-zA-Zא-ת ,'"\-]*$/;
+    const idRegex = /^[0-9]{9,9}$/;
+    const phoneRegex = /^[\+0-9]{9,10}$/;
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // simple check for date format yyyy-mm-dd
+
+    const checkField = (fieldId, regex, errorMsg) => {
+        const field = document.getElementById(fieldId);
+        const fieldError = document.getElementById(`${fieldId}-error`);
+        if (field.value.trim() === '') {
+            field.style.border = '2px solid red';
+            fieldError.textContent = 'השדה הזה לא יכול להיות ריק';
+            isValid = false;
+        } else if (!regex.test(field.value)) {
+            field.style.border = '2px solid red';
+            fieldError.textContent = errorMsg;
+            isValid = false;
+        } else {
+            field.style.border = '';
+            fieldError.textContent = '';
+        }
+    }
+
+    checkField("firstName", nameRegex, 'פורמט השם לא חוקי');
+    checkField("lastName", nameRegex, 'פורמט השם לא חוקי');
+    checkField("ID", idRegex, 'מספר ת.ז. לא חוקי');
+    // checkField("BirthDate", dateRegex, 'פורמט התאריך לא חוקי');
+    // checkField("address", nameRegex, 'פורמט הכתובת לא חוקי');
+    checkField("phone", phoneRegex, 'מספר הטלפון לא חוקי');
+    checkField("EmergencyContactName", nameRegex, 'פורמט שם איש הקשר לא חוקי');
+    checkField("EmergencyContactPhone", phoneRegex, 'מספר טלפון איש הקשר לא חוקי');
+
+    return isValid;
+}
+
+
+
+
+
+
       </script>
     </div>
     <footer>

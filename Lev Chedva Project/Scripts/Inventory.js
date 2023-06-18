@@ -183,7 +183,15 @@ function displayProducts(ProductData) {
       QuantityItem.textContent = "כמות: " + ProductData.product_quantity;
       const RemarksItem = document.createElement('li');
       const ReservedQuantityItem = document.createElement('li');
-      ReservedQuantityItem.textContent = "כמות שמורה: "  + ProductData.reserved_quantity;
+      let reservedString;
+      if(ProductData.reserved_quantity==undefined)
+      {
+        reservedString="אין";
+      }else
+      {
+        reservedString=ProductData.reserved_quantity;
+      }
+      ReservedQuantityItem.textContent = "כמות שמורה: "  + reservedString;
 
       RemarksItem.textContent = "הערות: " + ProductData.remarks;
       const StatusItem = document.createElement('li');

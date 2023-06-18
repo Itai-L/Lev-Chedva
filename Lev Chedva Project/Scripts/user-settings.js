@@ -168,11 +168,12 @@ auth.onAuthStateChanged(user => {
             updateEmailButton.addEventListener('click', () => {
                 // Fetch the new email
                 let newEmail = emailField.value;
+                newEmail=newEmail.toLowerCase();
                 
                 // Update email in Firebase auth
                 user.updateEmail(newEmail)
     .then(() => {
-        console.log("Email successfully updated!");
+              alert("אימייל עודכן בהצלחה");
 
         // Get the document
         db.collection('Volunteers').doc(email).get()
@@ -196,6 +197,7 @@ auth.onAuthStateChanged(user => {
         });
     })
     .catch((error) => {
+      alert("שגיאה");
         console.error("Error updating email: ", error);
     });
 
@@ -224,14 +226,14 @@ auth.onAuthStateChanged(user => {
             let confirmPassword = confirmPasswordField.value;
 
             if (newPassword !== confirmPassword) {
-                console.error("Passwords do not match!");
+                alert("סיסמאות אינן תואמות");
                 return;
             }
             
             // Update password in Firebase auth
             user.updatePassword(newPassword)
             .then(() => {
-                console.log("Password successfully updated!");
+                alert("סיסמא עודכנה בהצלחה");
             })
             .catch((error) => {
                 console.error("Error updating password: ", error);

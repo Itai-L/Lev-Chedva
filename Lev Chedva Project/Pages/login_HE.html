@@ -10,6 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
     <script src="../firebase.js"></script>
   </head>
   <body>
@@ -121,20 +122,39 @@
         } else {
           // If the email is not found in both collections, log an error and redirect to an error page
           console.error("No such document!");
-          window.location.href = "error.html";
+          logout();
+          window.location.href = `404_withButton.html?email=${encodeURIComponent(email)}`;
+          
         }
       }).catch((error) => {
         // Handle errors
         console.error("Error getting document:", error);
-        window.location.href = "error.html";
+          logout();
+        window.location.href = "404.html";
+       
+
       });
     }
   }).catch((error) => {
     // Handle errors
     console.error("Error getting document:", error);
-    window.location.href = "error.html";
+    window.location.href = "404.html";
+
   });
 }
+
+function logout() {
+  firebase.auth().signOut()
+    .then(() => {
+      console.log('User signed out successfully');
+    
+    })
+    .catch((error) => {
+      console.error('Error signing out:', error);
+    });
+}
+
+
 
         
         function forgotPassword() {

@@ -114,6 +114,11 @@ reserveBtn.addEventListener('click', async () => {
         alert('מוצר לא נמצא');
         return;
     }
+
+
+    if(!validateForm())
+    return;
+
     const reservationData = {
         // product_name:ProductName,
         categorial_number:CatNum,
@@ -231,3 +236,38 @@ const translateStatus = (status) => {
   
     }
   };
+
+  function validateForm() {
+    let isValid = true;
+    const nameRegex = /^[a-zA-Zא-ת ,'"\-]*$/;
+    const phoneRegex = /^[\+0-9]{10,15}$/;
+    const quantityRegex = /^[0-9]*$/;
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // simple check for date format yyyy-mm-dd
+
+    const checkField = (fieldId, regex, errorMsg) => {
+        const field = document.getElementById(fieldId);
+        const fieldError = document.getElementById(`${fieldId}-error`);
+        if (field.value.trim() === '') {
+            isValid = true;
+        } else if (!regex.test(field.value)) {
+            field.style.border = '2px solid red';
+            fieldError.textContent = errorMsg;
+            isValid = false;
+        } else {
+            field.style.border = '';
+            fieldError.textContent = '';
+        }
+    }
+
+    checkField("patient-name", nameRegex, 'פורמט השם לא חוקי');
+    checkField("contact-name", nameRegex, 'פורמט השם לא חוקי');
+    checkField("phone-number-1", phoneRegex, 'מספר הטלפון לא חוקי');
+    checkField("phone-number-2", phoneRegex, 'מספר הטלפון הנוסף לא חוקי');
+    checkField("reservation-quantity", quantityRegex, 'כמות להזמנה לא חוקית');
+     //checkField("reservedOn", dateRegex, 'פורמט התאריך לא חוקי');
+     //checkField("reservation-date", dateRegex, 'פורמט התאריך לא חוקי');
+    // checkField("reservedUntil", dateRegex, 'פורמט התאריך לא חוקי');
+    checkField("volunteer-name", nameRegex, 'פורמט שם המתנדב לא חוקי');
+
+    return isValid;
+}

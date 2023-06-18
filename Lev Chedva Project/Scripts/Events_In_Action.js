@@ -683,7 +683,6 @@ function DisplayData(eventData) {
     MotorcycleItem.appendChild(MotorcycleLabel);
     MotorcycleItem.appendChild(MotorcycleCheckboxLabel);
 
-    // Event listener for submitting changes
     const submitChanges = () => {
       // Update the eventData with the new values
       eventData.ProductName = ProductNameInput.value;
@@ -700,33 +699,63 @@ function DisplayData(eventData) {
       // Update the Firestore document
       const eventDocRef = eventRef.doc(eventData.eventCounter.toString());
       eventDocRef.update(eventData)
-        .then(() => {
-          // Display the updated information
-          ProductNameItem.textContent = "שם המוצר: " + eventData.ProductName;
-          // ...update other items' text content...
+          .then(() => {
+              // Display the updated information
+              ProductNameItem.textContent = "שם המוצר: " + eventData.ProductName;
+              AdressItem.textContent = "כתובת מקור: " + eventData.Source_Address;
+              AdressItem2.textContent = "כתובת יעד: " + eventData.Destination_Address;
+              ContactNameItem.textContent = "שם איש קשר: " + eventData.contactName;
+              ContactPhoneItem.textContent = "טלפון באיסוף: " + eventData.contactPhone;
+              RemarksItem.textContent = "הערות: " + eventData.remarks;
+              ContactNameItem2.textContent = "שם איש קשר ביעד: " + eventData.contactNameDestination;
+              ContactPhoneItem2.textContent = "טלפון ביעד: " + eventData.contactPhoneDestination;
+              SizeItem.textContent = "גודל: " + eventData.size;
+              WeightItem.textContent = "משקל: " + eventData.weight;
+              JeepItem.textContent = "יחידת ג'יפים: " + (eventData.jeepUnit ? 'כן' : 'לא');
+              MotorcycleItem.textContent = 'יחידת האופנועים: ' + (eventData.motorcycleUnit ? 'כן' : 'לא');
 
-          // Remove the input fields and submit button
-          ProductNameLabel.remove();
-          ProductNameInput.remove();
-          // ...remove other input fields...
+              // Remove the input fields and submit button
+              ProductNameLabel.remove();
+              ProductNameInput.remove();
+              AdressLabel.remove();
+              AdressInput.remove();
+              AdressLabel2.remove();
+              AdressInput2.remove();
+              ContactNameLabel.remove();
+              ContactNameInput.remove();
+              ContactPhoneLabel.remove();
+              ContactPhoneInput.remove();
+              RemarksLabel.remove();
+              RemarksInput.remove();
+              ContactNameLabel2.remove();
+              ContactNameInput2.remove();
+              ContactPhoneLabel2.remove();
+              ContactPhoneInput2.remove();
+              SizeLabel.remove();
+              SizeSelect.remove();
+              WeightLabel.remove();
+              WeightSelect.remove();
+              JeepLabel.remove();
+              JeepCheckboxLabel.remove();
+              MotorcycleLabel.remove();
+              MotorcycleCheckboxLabel.remove();
 
-          submitButton.remove();
-        })
-        .catch((error) => {
-          console.error("Error updating Firestore document: ", error);
-        });
-    };
+              submitButton.remove();
+          })
+          .catch((error) => {
+              console.error("Error updating Firestore document: ", error);
+          });
+  };
 
-    // Create a submit button for changes
-    const submitButton = document.createElement('button');
-    submitButton.textContent = 'שמירת שינויים';
-    submitButton.style.marginTop = '10px'; // Add margin top for spacing
-    buttonContainer.appendChild(submitButton);
+  // Create a submit button for changes
+  const submitButton = document.createElement('button');
+  submitButton.textContent = 'שמירת שינויים';
+  submitButton.style.marginTop = '10px'; // Add margin top for spacing
+  buttonContainer.appendChild(submitButton);
 
-    // Event listener for submit button
-    submitButton.addEventListener('click', submitChanges);
-  });
-
+  // Event listener for submit button
+  submitButton.addEventListener('click', submitChanges);
+});
 
   CloseEvent.addEventListener('click', () => {
     if (eventData && eventData.eventCounter) {

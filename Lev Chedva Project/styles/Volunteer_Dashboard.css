@@ -30,7 +30,7 @@ html, body {
   text-align: center;
   transition: background-color 0.3s ease;
   width: 8rem; 
-  height: 4rem;;
+  height: 5rem;;
 }
 
 #navbar button:hover {
